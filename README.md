@@ -368,6 +368,12 @@ F-statistic: 161.9 on 3 and 416 DF,  p-value: < 2.2e-16
 ```
 *Listing 19 - Statistički parametri regresionog modela9*
 
+
+
+Za kranji model čitamo vrednost Fišerove statistike koja iznosi 161.9 uz 416 stepeni slobode. Stepeni slobode se dobijaju kada se od ukupnog broja opservacija u uzorku oduzme broj promenljivih koje ušestvuju u modelu. Što je veća vrednost F statistike od broja 1 to je bolje za model. Ova mera zavisi od veličine uzorka i broja promenljivih koje se predviđaju, pa se mora posmatrati relativno u odnosu na broj opservacija.  
+
+Residual standard error predstavlja meru kvaliteta modela linerne regresije. To je prosečna vrednost koliko će promenljiva Golovi odstupati od prave regresione linije. 
+
 Na kraju je dobijen model u kome su sve preostale promenljive značajne sa najvišim nivoom značajnosti pa se staje sa iteracijama. Dati model linearne regresije sa velikom preciznošću samo na osnovu šuteva u okvir gola, broja
 kornera i krajnjeg pobednika meča može predvideti broj golova jedne ekipe na utakmici.
 
