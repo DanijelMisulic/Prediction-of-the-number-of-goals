@@ -279,8 +279,36 @@ U sledećoj iteraciji će iz modela biti izostavljena promenljiva *BlokiraniŠut
 ```R
 model7 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
 ```
+*Listing 14 - Regresioni model7*
 
-Multiple R-squared = 0.5429, Adjusted R-squared = 0.5374. Sledeća promenljiva koja se neće naći u krajnjem modelu je *PosedLopte*. 
+Multiple R-squared = 0.5429, Adjusted R-squared = 0.5374. 
+
+```R
+summary(model7)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3486 -0.5514 -0.1102  0.4581  3.1274 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.828374   0.286031   2.896  0.00398 ** 
+PosedLopte   -0.006434   0.004835  -1.331  0.18403    
+SuteviUokvir  0.243746   0.020161  12.090  < 2e-16 ***
+Korneri      -0.070095   0.015007  -4.671 4.06e-06 ***
+Kvota        -0.039188   0.020675  -1.895  0.05873 .  
+Pobednik      1.023903   0.093331  10.971  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.819 on 414 degrees of freedom
+Multiple R-squared:  0.5429,    Adjusted R-squared:  0.5374 
+F-statistic: 98.34 on 5 and 414 DF,  p-value: < 2.2e-16
+
+```
+*Listing 15 - Statistički parametri regresionog modela7*
+
+Sledeća promenljiva koja se neće naći u krajnjem modelu je *PosedLopte*.
 
 ```R
 model8 = lm(Golovi ~ SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
