@@ -72,7 +72,7 @@ F-statistic: 44.31 on 11 and 408 DF,  p-value: < 2.2e-16
 ```
 *Listing 3 - Statistički parametri regresionog modela1*
 
-U koloni *estimate* se nalaze koeficijenti koji stoje uz date nezavisne promenljive modela, a mađu njima se nalazi i slobodni član. 
+U koloni *estimate* nalaze se koeficijenti koji stoje uz date nezavisne promenljive modela, a mađu njima se nalazi i slobodni član. 
 Od najvećeg značaja su dve vrednosti: Multiple R-squared i Adjusted R- squared. One iznose 0.5443 i 0.532 i na osnovu toga se može 
 zaključiti da je model za sada veoma pogodan za predvidđanje broja golova na utakmici. Najveća vrednost koju ova dva koeficijenta mogu uzeti je 1 i što 
 je vrednost ove dve mere bliža jedinici to je model pogodniji za predviđanje. Osnovna mera koja se posmatra je Multiple R-squared, a  predstavlja srednju kvadratnu grešku modela. Daljim podešavanjem modela se teži da mera Adjusted R – squared ima blisku vrednost Multiple R-squared. Koeficijent Multiple R-squared dolazi do izražaja kada se dodaju promenljive u model ili se izbacuju iz njega. Ukoliko dodavanjem neke promenljive vrednost Multiple R-squared ostane ista, a Adjusted R-squared se smanjuje onda dolazi do problema kada postoji previše promenljivih u modelu. Tada nastaje overfitting samog modela nad podacima koji su mu 
@@ -83,7 +83,7 @@ način mogu uočiti varijable koje su stvarno od značaja za posmatrani problem.
 
 Dalje je neophodno protumačiti ako se pojave jedna, dve, tri zvezdice u produžetku korišćenih varijabli ili ako se te zvezdice uopšte i ne pojavljuju u tumačenju modela. Kada se u produžetku neke nezavisne promenljive nalaze 3 zvezdice(``***``), kao što je to slučaj sa *ŠuteviUOkvir*, *Pobednik* i *Korneri*, to znači da su ove promenljive jako značajne za naš model i da je poželjno da ih zadržimo. Tri zvezdice predstavljaju promenljive sa statističkim nivoom značajnosti 0, odnosno najvišim nivoom, a kako se broj zvezdica smanjuje i sam nivo značajnosti opada. Može se primetiti da trenutno postoji još samo jedna promenljive koja je od značaja za model, ali sa znatno manjim nivovom značajnosti od 0.1, to je promenljiva *Kvota*. Vrednost nivoa značajnosti promenljivih može varirati kroz iteracije modela, pa se zato teži da se model pojednostavljuje izbacivanjem jedne po jedne promenljive, a ne odjednom svih.
 
-Iz iteracije u iteraciju neophodno je protumačiti rezultate modela, pa se može desiti da neke promenljive koje u početku nisu bile statistički značajne postanu jako značajne. To se dešava usled problema multikolinearnosti, kada postoji velika korelacija između neke dve promenljive. Ova pojava se može javiti i u predloženom modelu zato što su neke promenljive izvedene iz drugih. Ideja je da na kraju kao rezultat ostane model dovoljno
+Iz iteracije u iteraciju potrebno je protumačiti rezultate modela, pa se može desiti da neke promenljive koje u početku nisu bile statistički značajne postanu jako značajne. To se dešava usled problema multikolinearnosti, kada postoji velika korelacija između neke dve promenljive. Ova pojava se može javiti i u predloženom modelu zato što su neke promenljive izvedene iz drugih. Ideja je da na kraju kao rezultat ostane model dovoljno
 jasan i jednostavan, sa statistički veoma značajnim promenljivama i relativno velikom vrednošću oba koeficijenata R-squared.
 
 Od promenljivih koje se u ovoj prvoj iteraciji nisu pokazale statistički značajne biće izabrana jedna koja će biti izbaćena iz modela.
@@ -96,7 +96,7 @@ model2 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva 
 *Listing 4 - Regresioni model2*
 
 U modelu 2 vrednost Multiple R-squared iznosi 0.5443, a Adjusted R-squared iznosi 0.5331. Vrednost Multiple R-squared u odnosu na 
-model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. Dalje se postupak ponavlja, sledeća promenljiva koju će biti odstanjena je *UkupnoSuteva*. 
+model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. 
 
 ```R
 summary(model2)
@@ -128,11 +128,43 @@ F-statistic: 48.85 on 10 and 409 DF,  p-value: < 2.2e-16
 ```
 *Listing 5 - Statistički parametri regresionog modela2*
 
+Dalje se postupak ponavlja, sledeća promenljiva koju će biti odstanjena je *UkupnoSuteva*. 
+
 ```R
 model3 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
 ```
+*Listing 6 - Regresioni model3*
 
-Multiple R-squared = 0.5442, Adjusted R-squared = 0.5342. Mera Adjusted R – squared se opet povećala što predstavalja poboljšanje regresionog modela. Sledeća promenljiva koja će biti izbačena iz modela je *ŠuteviVanOkvira*.
+Multiple R-squared = 0.5442, Adjusted R-squared = 0.5342. Mera Adjusted R – squared se opet povećala što predstavalja poboljšanje regresionog modela. 
+
+```R
+summary(model3)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3462 -0.5354 -0.1185  0.4640  3.1702 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.711408   0.327072   2.175   0.0302 *  
+PosedLopte      -0.005930   0.004950  -1.198   0.2316    
+SuteviUokvir     0.244648   0.020303  12.050  < 2e-16 ***
+BlokiraniSutevi -0.012381   0.019340  -0.640   0.5224    
+SuteviVanOkvira -0.003788   0.015760  -0.240   0.8102    
+SlobodniUdarci   0.007920   0.011346   0.698   0.4855    
+Korneri         -0.064927   0.016498  -3.936 9.75e-05 ***
+Ofsajdi          0.010410   0.025450   0.409   0.6827    
+Kvota           -0.038045   0.020835  -1.826   0.0686 .  
+Pobednik         1.020691   0.094022  10.856  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8218 on 410 degrees of freedom
+Multiple R-squared:  0.5442,    Adjusted R-squared:  0.5342 
+F-statistic: 54.39 on 9 and 410 DF,  p-value: < 2.2e-16
+
+```
+Sledeća promenljiva koja će biti izbačena iz modela je *ŠuteviVanOkvira*.
 
 ```R
 model4 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
