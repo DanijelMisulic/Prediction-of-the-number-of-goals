@@ -368,7 +368,7 @@ F-statistic: 161.9 on 3 and 416 DF,  p-value: < 2.2e-16
 ```
 *Listing 19 - Statistički parametri regresionog modela9*
 
-
+Reziduali krajnjeg modela variraju izmedju -2.2581 i 3.1630. Ovaj statistički parametar predstavlja razliku izmedju ostvarenih vrednosti i onih koje je model predvideo. Samim tim što medijana ima vrednost blisku nuli, to znači da regresioni model daje dobra predviđanja bliska realnim vrednostima. Medijana u datom kontekstu predstavlja vrednost reziduala pre koje se nalazi 50% ostalih vrednosti reziduala, a posle koje se nalazi preostalih 50%. 
 
 Za kranji model čitamo vrednost Fišerove statistike koja iznosi 161.9 uz 416 stepeni slobode. Stepeni slobode se dobijaju kada se od ukupnog broja opservacija u uzorku oduzme broj promenljivih koje ušestvuju u modelu. Što je veća vrednost F statistike od broja 1 to je bolje za model. Ova mera zavisi od veličine uzorka i broja promenljivih koje se predviđaju, pa se mora posmatrati relativno u odnosu na broj opservacija.  
 
