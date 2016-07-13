@@ -12,7 +12,7 @@ U modelu koji je rezultat linearne regresije pojavljuje se onoliko koeficijenata
 Osnovna ideja linearne regresije je da pruži model koji će na osnovu nekog novog seta podataka, nekih konkretnih vrednosti nezavisnih promenljivih dati projekciju, odnosno predvideti vrednost posmatrane zavisne promenljive. 
 
 ##	Podaci 
-Podaci koji su korićšćeni su prikupljeni sa portala [Rezultati.com](http://www.rezultati.com/), jednog od najpopularnijih sajtova za 
+Podaci koji su korišćeni su prikupljeni sa portala [Rezultati.com](http://www.rezultati.com/), jednog od najpopularnijih sajtova za 
 praćenje rezultata sportskih dešavanja u realnom vremenu. Svi prikupljeni podaci su sačuvani u fajlu [Premier_train.csv](https://github.com/DanijelMisulic/Predvidjanje-broja-golova/blob/master/Premier_train.csv).
 Prikupljeni su podaci svih mečeva u sezoni engleske Premijer lige 2015/16, odnosno prvih 37 kola. Ideja je da se na osnovu modela koji 
 je istreniran sa podacima iz tih prvih 37 kola predvide brojevi golova poslednjeg 38. kola i na taj način sam model istestira. Podaci 
