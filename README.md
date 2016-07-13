@@ -313,12 +313,40 @@ Sledeća promenljiva koja se neće naći u krajnjem modelu je *PosedLopte*.
 ```R
 model8 = lm(Golovi ~ SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
 ```
+*Listing 16 - Regresioni model8*
 
-Multiple R-squared = 0.5409, Adjusted R-squared = 0.5365. vrednosti oba koeficijenta su se smanjile u odnosu na prethodnu iteraciju, ali je izbačena promenljiva koja nije bila statistički značajna i na taj način je dobijen jednostavniji model. Kada je model pokazao zadovoljavajuće rezultat može se odabrati da se stane sa iteracijama ili da se izbaci još jedna promenljiva *Kvota*. 
+Multiple R-squared = 0.5409, Adjusted R-squared = 0.5365. vrednosti oba koeficijenta su se smanjile u odnosu na prethodnu iteraciju, ali je izbačena promenljiva koja nije bila statistički značajna i na taj način je dobijen jednostavniji model.  
+
+```R
+summary(model8)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3352 -0.5520 -0.1211  0.4925  3.1250 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.50127    0.14638   3.425 0.000677 ***
+SuteviUokvir  0.24045    0.02003  12.006  < 2e-16 ***
+Korneri      -0.07569    0.01442  -5.250 2.44e-07 ***
+Kvota        -0.02646    0.01835  -1.442 0.149982    
+Pobednik      1.03715    0.09289  11.166  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8198 on 415 degrees of freedom
+Multiple R-squared:  0.5409,    Adjusted R-squared:  0.5365 
+F-statistic: 122.3 on 4 and 415 DF,  p-value: < 2.2e-16
+
+```
+*Listing 17 - Statistički parametri regresionog modela8*
+
+Kada je model pokazao zadovoljavajuće rezultate može se odabrati da se stane sa iteracijama ili da se izbaci još jedna promenljiva *Kvota*.
 
 ```R
 model9 = lm(Golovi ~ SuteviUokvir + Korneri +  Pobednik, data = Premier)
 ```
+*Listing 18 - Regresioni model9*
 
 ```R
 Residuals:
@@ -338,6 +366,7 @@ Residual standard error: 0.8208 on 416 degrees of freedom
 Multiple R-squared:  0.5386,    Adjusted R-squared:  0.5353 
 F-statistic: 161.9 on 3 and 416 DF,  p-value: < 2.2e-16
 ```
+*Listing 19 - Statistički parametri regresionog modela9*
 
 Na kraju je dobijen model u kome su sve preostale promenljive značajne sa najvišim nivoom značajnosti pa se staje sa iteracijama. Dati model linearne regresije sa velikom preciznošću samo na osnovu šuteva u okvir gola, broja
 kornera i krajnjeg pobednika meča može predvideti broj golova jedne ekipe na utakmici.
