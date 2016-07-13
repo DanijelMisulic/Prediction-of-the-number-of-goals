@@ -35,6 +35,7 @@ Premier = read.csv("Premier_train.csv")
 model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik + CrveniKartoni, data = Premier)
 summary(model1)
 ```
+*Listing 2 - Regresioni model1*
 
 U inicijalnom rešenju dobijen je model1 pozivom funkcije lm. Sa leve strane znaka ~ definiše se zavisna promenljiva, a to je u ovom 
 slučaju promenljiva *Golovi*. Sa desne strane znaka ~ nalaze se nezavisne promenljive koje se nadovezuju pomoću znaka +. Dalje se mora precizirati koji dataset se koristi, pa će biti prosleđen onaj koji je u ove svrhe prikupljen i učitan u prethodnom koraku. Kako izgleda sam model linearne regresije prikazano je u nastavku pozivom metode:
@@ -42,20 +43,24 @@ slučaju promenljiva *Golovi*. Sa desne strane znaka ~ nalaze se nezavisne prome
 ```R
 summary(model1)
 
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3524 -0.5397 -0.1026  0.4679  3.1676 
+
 Coefficients:
-                 		Estimate 	Std. Error t 		value Pr(>|t|)    
-(Intercept)      		 0.733277   	0.337704  		 2.171 0.030479 *  
-PosedLopte     		 -0.006232  	 0.005044  		-1.235 0.217383    
-SuteviUokvir   	  0.234419   	0.047317   		4.954 1.07e-06 ***
-BlokiraniSutevi 	 -0.023064   	0.048700  		-0.474 0.636044    
-UkupnoSuteva    	 0.010440   	0.043700  		 0.239 0.811309    
-SuteviVanOkvira 	-0.013583  	 0.042052  		-0.323 0.746861    
-SlobodniUdarci   	 0.007883  	 0.011375   		 0.693 0.488699    
-Korneri        		 -0.064742   	0.016553  		-3.911 0.000108 ***
-Ofsajdi        		  0.009508  	 0.025654 		  0.371 0.711120    
-Kvota          		 -0.039100  	 0.021199 		 -1.844 0.065850 .  
-Pobednik       		  1.015347  	 0.095957 		 10.581  < 2e-16 ***
-CrveniKartoni  	 -0.034538  	 0.150987  		-0.229 0.819177    
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.733277   0.337704   2.171 0.030479 *  
+PosedLopte      -0.006232   0.005044  -1.235 0.217383    
+SuteviUokvir     0.234419   0.047317   4.954 1.07e-06 ***
+BlokiraniSutevi -0.023064   0.048700  -0.474 0.636044    
+UkupnoSuteva     0.010440   0.043700   0.239 0.811309    
+SuteviVanOkvira -0.013583   0.042052  -0.323 0.746861    
+SlobodniUdarci   0.007883   0.011375   0.693 0.488699    
+Korneri         -0.064742   0.016553  -3.911 0.000108 ***
+Ofsajdi          0.009508   0.025654   0.371 0.711120    
+Kvota           -0.039100   0.021199  -1.844 0.065850 .  
+Pobednik         1.015347   0.095957  10.581  < 2e-16 ***
+CrveniKartoni   -0.034538   0.150987  -0.229 0.819177    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -63,7 +68,9 @@ Residual standard error: 0.8237 on 408 degrees of freedom
 Multiple R-squared:  0.5443,    Adjusted R-squared:  0.532 
 F-statistic: 44.31 on 11 and 408 DF,  p-value: < 2.2e-16
 
+
 ```
+*Listing 3 - Statistički parametri regresionog modela1*
 
 U koloni *estimate* se nalaze koeficijenti koji stoje uz date nezavisne promenljive modela, a mađu njima se nalazi i slobodni član. 
 Od najvećeg značaja su dve vrednosti: Multiple R-squared i Adjusted R- squared. One iznose 0.5443 i 0.532 i na osnovu toga se može 
@@ -86,6 +93,7 @@ koloni. Zatim se poziva ista funkciju kao u prethodnoj iteraciji samo bez promen
 ```R
 model2 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
 ```
+*Listing 4 - Regresioni model2*
 
 U modelu 2 vrednost Multiple R-squared iznosi 0.5443, a Adjusted R-squared iznosi 0.5331. Vrednost Multiple R-squared u odnosu na 
 model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. Dalje se postupak ponavlja, sledeća promenljiva koju će biti odstanjena je *UkupnoSuteva*. 
@@ -118,6 +126,7 @@ Multiple R-squared:  0.5443,    Adjusted R-squared:  0.5331
 F-statistic: 48.85 on 10 and 409 DF,  p-value: < 2.2e-16
 
 ```
+*Listing 5 - Statistički parametri regresionog modela2*
 
 ```R
 model3 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
