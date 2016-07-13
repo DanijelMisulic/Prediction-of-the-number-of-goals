@@ -18,12 +18,13 @@ Prikupljeni su podaci svih mečeva u sezoni engleske Premijer lige 2015/16, odno
 je istreniran sa podacima iz tih prvih 37 kola predvide brojevi golova poslednjeg 38. kola i na taj način sam model istestira. Podaci 
 tog poslednjeg kola se nalaze u fajlu Premier_test.csv.  Sami podaci koji su prikupljeni predstavljaju standardne statističke parametre 
 koji se prate na svakom fudbalskom meču poput: šuteva u okvir gola, procenat poseda lopte, broj žutih kartona, broj kornera i slično.
-Primer ispod pokazuje kako izgleda jedan red u datom csv fajlu:
+Primer podataka korišćenih u analizi dat je u Listingu 1.
 
 ```
 Tim,Golovi,PosedLopte,UkupnoSuteva,SuteviUokvir,SuteviVanOkvira,BlokiraniSutevi,SlobodniUdarci,Korneri,Ofsajdi,OdbraneGolmana,Prekrsaji,ZutiKartoni,CrveniKartoni,Kvota,Pobednik
 Manchester United,1,67,15,2,6,7,11,6,1,2,10,1,0,2.1,1
 ```
+*Listing 1 - Primer podataka korišćenih za analizu*
 
 ##	Realizacija projekta i tumačenje rezultata
 Projekat je realizovan u programskom jeziku R. Dati programski jezik je odabran zbog lakoće manipulacije CSV fajlovima i zbog 
