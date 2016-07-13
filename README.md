@@ -28,7 +28,7 @@ Manchester United,1,67,15,2,6,7,11,6,1,2,10,1,0,2.1,1
 
 ##	Realizacija projekta i tumačenje rezultata
 Projekat je realizovan u programskom jeziku R. Dati programski jezik je odabran zbog lakoće manipulacije CSV fajlovima i zbog 
-jednostavnosti pravljenja modela linearne regresije. U početku učitavamo fajl Premier_train.csv u kome se nalaze podaci koji su prikupljeni. Zatim se poziva funkcija **lm***, koja će napraviti traženi model linearne regresije. Početna ideja je da se većina promenljivih koje se nalaze u training dataset-u postave kao nezavisne. Sam rezultat ovog koraka neće biti savršen model, ali će biti moguće u više iteracija model poboljšavati s obzirom na protumačene rezultate. 
+jednostavnosti pravljenja modela linearne regresije. Prvo učitavamo fajl Premier_train.csv u kome se nalaze podaci koji su prikupljeni. Zatim se poziva funkcija **lm***, koja će napraviti traženi model linearne regresije. Početna ideja je da se većina promenljivih koje se nalaze u training dataset-u postave kao nezavisne, a promeljiva Golovi da se postavi kao zavisna. Sam rezultat ovog koraka neće biti savršen model, ali će biti moguće u više iteracija model poboljšavati s obzirom na protumačene rezultate. 
 
 ```R
 Premier = read.csv("Premier_train.csv")
