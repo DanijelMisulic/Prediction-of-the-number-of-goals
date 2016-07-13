@@ -88,44 +88,43 @@ model2 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva 
 ```
 
 U modelu 2 vrednost Multiple R-squared iznosi 0.5443, a Adjusted R-squared iznosi 0.5331. Vrednost Multiple R-squared u odnosu na 
-model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. Dalje 
-ponavljamo postupak, sledeća promenljiva koju ćemo da odstranimo je *UkupnoSuteva*. 
+model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. Dalje se postupak ponavlja, sledeća promenljiva koju će biti odstanjena je *UkupnoSuteva*. 
 
 ```R
 model3 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
 ```
 
-Multiple R-squared = 0.5442, Adjusted R-squared = 0.5342. Mera Adjusted R – squared se opet povećala što predstavalja poboljšanje našeg modela. Dalje izbacujemo *ŠuteveVanOkvira*.
+Multiple R-squared = 0.5442, Adjusted R-squared = 0.5342. Mera Adjusted R – squared se opet povećala što predstavalja poboljšanje regresionog modela. Sledeća promenljiva koja će biti izbačena iz modela je *ŠuteviVanOkvira*.
 
 ```R
 model4 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
 ```
 
-Multiple R-squared = 0.5441, Adjusted R-squared = 0.5353. Nastavljamo postupak, sada izbacujemo još jednu promenljivu koja se pokazala da nije značajna u našem modelu: *Ofsajdi*.
+Multiple R-squared = 0.5441, Adjusted R-squared = 0.5353. Postupak se ponavlja, sada će biti odstranjena još jednu promenljivu za koju se pokazalo da nije statistički značajna u modelu: *Ofsajdi*.
 
 ```R
 model5 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Kvota +  Pobednik, data = Premier)
 ```
 
-Multiple R-squared = 0.544, Adjusted R-squared 0.5362. Primećujemo da se naš model i dalje poboljšava pa nastavljamo sa iteracijama. Izbacujemo promenljivu *SlobodniUdarci*. 
+Multiple R-squared = 0.544, Adjusted R-squared 0.5362. Može se primetiti da se model i dalje poboljšava pa se nastavlja sa iteracijama. Sledeća se izbacuje promenljiva *SlobodniUdarci*. 
 
 ```R
 model6 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + Korneri + Kvota +  Pobednik, data = Premier)
 ```
 
-Multiple R-squared = 0.5434, Adjusted R-squared = 0.5368. Može se zaključiti da se model neznatno poboljšao kroz nekoliko uzastopnih iteracija, ali i dosta uprostio što je svakako i bilo poželjno. Sada izbacujemo *BlokiraneŠuteve*. 
+Multiple R-squared = 0.5434, Adjusted R-squared = 0.5368. Može se zaključiti da se model neznatno poboljšao kroz nekoliko uzastopnih iteracija, ali i dosta uprostio što je svakako poželjno. U ovoj iteraciji će iz modela biti izostavljena promenljiva *BlokiraniŠutevi*. 
 
 ```R
 model7 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
 ```
 
-Multiple R-squared = 0.5429, Adjusted R-squared = 0.5374. Sada izbacujemo promenljivu *PosedLopte*. 
+Multiple R-squared = 0.5429, Adjusted R-squared = 0.5374. Sledeća promenljiva koja se neće naći u krajnjem modelu je *PosedLopte*. 
 
 ```R
 model8 = lm(Golovi ~ SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
 ```
 
-Multiple R-squared = 0.5409, Adjusted R-squared = 0.5365. vrednosti oba ova koeficijenta su se smanjile u odnosu na prošlu iteraciju, ali smo izbacili promenljivu koja nije bila statistički značajna i na taj način ojačali model. Sada može da odaberemo da stanemo sa iteracijama ili da izbacimo i promenljivu Kvota. 
+Multiple R-squared = 0.5409, Adjusted R-squared = 0.5365. vrednosti oba koeficijenta su se smanjile u odnosu na prethodnu iteraciju, ali je izbačena promenljiva koja nije bila statistički značajna i na taj način je dobijen jednostavniji model. Kada je model pokazao zadovoljavajuće rezultat može se odabrati da se stane sa iteracijama ili da se izbaci još jedna promenljiva *Kvota*. 
 
 ```R
 model9 = lm(Golovi ~ SuteviUokvir + Korneri +  Pobednik, data = Premier)
@@ -150,12 +149,11 @@ Multiple R-squared:  0.5386,    Adjusted R-squared:  0.5353
 F-statistic: 161.9 on 3 and 416 DF,  p-value: < 2.2e-16
 ```
 
-Sada imamo model u koji smo dosta uprostili i u kome su sve tri preostale promenljive statistički značajne sa najvišim stepenom 
-signifikantnosti pa stajemo sa iteracijama. Dobili smo model koji sa velikom preciznošću samo na osnovu šuteva u okvir gola, broja
-kornera i krajnjeg pobenika meča može da predvidi broj golova jedne ekipe na utakmici.
+Na kraju je dobijen model u kome su sve preostale promenljive značajne sa najvišim nivoom značajnosti pa se staje sa iteracijama. Dati model linearne regresije sa velikom preciznošću samo na osnovu šuteva u okvir gola, broja
+kornera i krajnjeg pobednika meča može predvideti broj golova jedne ekipe na utakmici.
 
 ##	Predlozi poboljšanja modela
-Sami podaci na kojima se zasniva dobijen model dosta zavise od ofanzivne igre tima, a ne obraća se toliko pažnja na defanzivne sposobnosti istog tima. Ono što bi možda bilo još od većeg značaja su odbrambene karakteristike protivničkog tima. Na primer, nije isto da li će tim poput Mančester Junajteda imati 10 šuteva u okvir gola protiv nekog nižerazrednog tima ili protiv nekog pretendenta na titulu. Takodje, ukoliko je neki tim dobio crveni karton veća je verovatnoća da će primiti gol, pa bi za jedan tim bilo poželjno voditi računa i o nekim osnovnim karakteristikama njegovog protivnika, a ne samo o sopstvenim karakteristikama. Tako bi na primer mogao da se iskoristi dodatni atribut: da li je tim u nekom trenutku imao igrača više u odnostu na protivnika ili ne. To opet samo po sebi ne bi bilo toliko precizno s obzirom dužinu perioda sa igračem više i slično.
+Podaci na kojima se zasniva dobijen model dosta zavise od ofanzivne igre fudbalskog tima, a ne obraća se toliko pažnja na defanzivne sposobnosti. Možda bi od bilo od još većeg značaja bile odbrambene karakteristike protivničkog tima. Na primer, nije isto da li će tim poput Mančester Junajteda imati 10 šuteva u okvir gola protiv nekog nižerazrednog tima ili protiv nekog pretendenta na titulu. Takodje, ukoliko je neki tim dobio crveni karton veća je verovatnoća da će primiti gol, pa je za jedan tim poželjno voditi računa i o nekim osnovnim karakteristikama protivnika, a ne samo o sopstvenim karakteristikama. Tako bi na primer mogao da se iskoristi dodatni atribut: da li je tim u nekom trenutku imao igrača više u odnosu na protivnika ili ne. To opet samo po sebi ne bi bilo toliko precizno s obzirom na dužinu perioda sa igračem više i slično.
 
 Predstavljen model daje solidne rezultate koristeći samo neke od osnovnih statističkih parametara koji su dostupni svima. Činjenica je da se model može poboljšati dodavanjem još nekih statističkih paramatera. Postoje statistički podaci koji nisu dostupni svima i koji se plaćaju, a mogu dati bolji uvid u neke aspekte igre fudbalskih timova, poput ukupne kilometraže koju igrači pretrče na meču ili ukupan broj startova koje načine.  
 
