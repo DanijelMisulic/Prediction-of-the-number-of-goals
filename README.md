@@ -91,6 +91,35 @@ U modelu 2 vrednost Multiple R-squared iznosi 0.5443, a Adjusted R-squared iznos
 model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. Dalje se postupak ponavlja, sledeća promenljiva koju će biti odstanjena je *UkupnoSuteva*. 
 
 ```R
+summary(model2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3569 -0.5347 -0.1167  0.4615  3.1722 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.715062   0.327801   2.181 0.029723 *  
+PosedLopte      -0.006093   0.005002  -1.218 0.223863    
+SuteviUokvir     0.234396   0.047262   4.960 1.04e-06 ***
+BlokiraniSutevi -0.023103   0.048644  -0.475 0.635074    
+UkupnoSuteva     0.010488   0.043649   0.240 0.810234    
+SuteviVanOkvira -0.013129   0.041956  -0.313 0.754493    
+SlobodniUdarci   0.007941   0.011359   0.699 0.484919    
+Korneri         -0.064745   0.016534  -3.916 0.000106 ***
+Ofsajdi          0.009972   0.025544   0.390 0.696449    
+Kvota           -0.038302   0.020886  -1.834 0.067402 .  
+Pobednik         1.019246   0.094322  10.806  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8228 on 409 degrees of freedom
+Multiple R-squared:  0.5443,    Adjusted R-squared:  0.5331 
+F-statistic: 48.85 on 10 and 409 DF,  p-value: < 2.2e-16
+
+```
+
+```R
 model3 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
 ```
 
