@@ -164,13 +164,46 @@ Multiple R-squared:  0.5442,    Adjusted R-squared:  0.5342
 F-statistic: 54.39 on 9 and 410 DF,  p-value: < 2.2e-16
 
 ```
+*Listing 7 - Statistički parametri regresionog modela3*
+
 Sledeća promenljiva koja će biti izbačena iz modela je *ŠuteviVanOkvira*.
 
 ```R
 model4 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
 ```
+*Listing 8 - Regresioni model4*
 
-Multiple R-squared = 0.5441, Adjusted R-squared = 0.5353. Postupak se ponavlja, sada će biti odstranjena još jednu promenljivu za koju se pokazalo da nije statistički značajna u modelu: *Ofsajdi*.
+Multiple R-squared = 0.5441, Adjusted R-squared = 0.5353. 
+
+```R
+summary(model4)
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3733 -0.5314 -0.1135  0.4618  3.1804 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.701734   0.324214   2.164   0.0310 *  
+PosedLopte      -0.006017   0.004931  -1.220   0.2231    
+SuteviUokvir     0.244333   0.020238  12.073  < 2e-16 ***
+BlokiraniSutevi -0.013289   0.018946  -0.701   0.4835    
+SlobodniUdarci   0.008112   0.011305   0.718   0.4734    
+Korneri         -0.065608   0.016234  -4.041 6.34e-05 ***
+Ofsajdi          0.010421   0.025420   0.410   0.6821    
+Kvota           -0.037948   0.020807  -1.824   0.0689 .  
+Pobednik         1.020616   0.093913  10.868  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8209 on 411 degrees of freedom
+Multiple R-squared:  0.5441,    Adjusted R-squared:  0.5353 
+F-statistic: 61.32 on 8 and 411 DF,  p-value: < 2.2e-16
+
+
+```
+*Listing 9 - Statistički parametri regresionog modela4*
+
+Postupak se ponavlja, sada će biti odstranjena još jedna promenljiva za koju se pokazalo da nije statistički značajna u modelu: *Ofsajdi*.
 
 ```R
 model5 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Kvota +  Pobednik, data = Premier)
