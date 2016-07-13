@@ -385,3 +385,4 @@ Predstavljen model daje solidne rezultate koristeći samo neke od osnovnih stati
 ##	Literatura	
 -	EDX kurs, Analytics Edge, link: https://courses.edx.org/courses/course-v1:MITx+15.071x_3+1T2016/courseware/f8d71d64418146f18a066d7f0379678c/6248c2ecbbcb40cfa613193e8f1873c1/ , datum pristupa: 12.07.2016
 -	 Wikipedia, “Linear regression” link: https://en.wikipedia.org/wiki/Linear_regression, datum pristupa: 11.07.2016
+-	 Quick guide:Interpreting simple linear model output in R, link: https://rstudio-pubs-static.s3.amazonaws.com/119859_a290e183ff2f46b2858db66c3bc9ed3a.html, datum pristupa 13.07.2016
