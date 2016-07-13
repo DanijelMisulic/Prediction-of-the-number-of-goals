@@ -244,9 +244,37 @@ Može se primetiti da se model i dalje poboljšava pa se nastavlja sa iteracijam
 ```R
 model6 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + Korneri + Kvota +  Pobednik, data = Premier)
 ```
+*Listing 12 - Regresioni model6*
 
+Multiple R-squared = 0.5434, Adjusted R-squared = 0.5368. Može se zaključiti da se model neznatno poboljšao kroz nekoliko uzastopnih iteracija, ali i dosta uprostio što je svakako poželjno. 
 
-Multiple R-squared = 0.5434, Adjusted R-squared = 0.5368. Može se zaključiti da se model neznatno poboljšao kroz nekoliko uzastopnih iteracija, ali i dosta uprostio što je svakako poželjno. U ovoj iteraciji će iz modela biti izostavljena promenljiva *BlokiraniŠutevi*. 
+```R
+summary(model6)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3303 -0.5452 -0.1030  0.4733  3.1746 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.822941   0.286321   2.874  0.00426 ** 
+PosedLopte      -0.005867   0.004907  -1.196  0.23256    
+SuteviUokvir     0.244366   0.020194  12.101  < 2e-16 ***
+BlokiraniSutevi -0.013024   0.018911  -0.689  0.49141    
+Korneri         -0.065911   0.016199  -4.069 5.66e-05 ***
+Kvota           -0.039411   0.020691  -1.905  0.05750 .  
+Pobednik         1.019287   0.093631  10.886  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8195 on 413 degrees of freedom
+Multiple R-squared:  0.5434,    Adjusted R-squared:  0.5368 
+F-statistic: 81.93 on 6 and 413 DF,  p-value: < 2.2e-16
+
+```
+*Listing 13 - Statistički parametri regresionog modela6*
+
+U sledećoj iteraciji će iz modela biti izostavljena promenljiva *BlokiraniŠutevi*. 
 
 ```R
 model7 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
