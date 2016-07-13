@@ -1,0 +1,1232 @@
+
+R version 3.3.0 (2016-05-03) -- "Supposedly Educational"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> Premier = read.csv("Premier.csv")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'Premier.csv': No such file or directory
+> Premier = read.csv("Premier_train.csv")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'Premier_train.csv': No such file or directory
+> Premier = read.csv("Premier_train.csv")
+> summary(Premier)
+          Team        Golovi        PosedLopte  UkupnoSuteva    SuteviUokvir  
+ Arsenal    : 3   Min.   :0.000   Min.   :29   Min.   : 2.00   Min.   :0.000  
+ Aston Villa: 3   1st Qu.:1.000   1st Qu.:41   1st Qu.:10.25   1st Qu.:3.000  
+ Bournemouth: 3   Median :1.000   Median :50   Median :13.00   Median :4.000  
+ Chelsea    : 3   Mean   :1.574   Mean   :50   Mean   :13.43   Mean   :4.185  
+ Leicester  : 3   3rd Qu.:2.000   3rd Qu.:59   3rd Qu.:16.00   3rd Qu.:5.000  
+ Liverpool  : 3   Max.   :4.000   Max.   :71   Max.   :32.00   Max.   :9.000  
+ (Other)    :36                                                               
+ SuteviVanOkvira BlokiraniSutevi  SlobodniUdarci     Korneri      
+ Min.   : 0.00   Min.   : 0.000   Min.   : 5.00   Min.   : 0.000  
+ 1st Qu.: 3.25   1st Qu.: 2.000   1st Qu.: 9.00   1st Qu.: 4.000  
+ Median : 5.00   Median : 3.000   Median :11.00   Median : 6.000  
+ Mean   : 5.37   Mean   : 3.796   Mean   :12.17   Mean   : 5.759  
+ 3rd Qu.: 7.00   3rd Qu.: 5.000   3rd Qu.:14.00   3rd Qu.: 8.000  
+ Max.   :14.00   Max.   :10.000   Max.   :22.00   Max.   :13.000  
+                                                                  
+    Ofsajdi      OdbraneGolmana     Prekrsaji      ZutiKartoni  
+ Min.   :0.000   Min.   : 0.000   Min.   : 0.00   Min.   :0.00  
+ 1st Qu.:1.000   1st Qu.: 2.000   1st Qu.: 8.00   1st Qu.:1.00  
+ Median :1.000   Median : 3.000   Median :10.00   Median :1.00  
+ Mean   :1.759   Mean   : 2.704   Mean   :10.33   Mean   :1.63  
+ 3rd Qu.:3.000   3rd Qu.: 3.000   3rd Qu.:13.00   3rd Qu.:2.00  
+ Max.   :6.000   Max.   :11.000   Max.   :20.00   Max.   :9.00  
+                                                                
+ CrveniKartoni    
+ Min.   :0.00000  
+ 1st Qu.:0.00000  
+ Median :0.00000  
+ Mean   :0.07407  
+ 3rd Qu.:0.00000  
+ Max.   :1.00000  
+                  
+> model1 = lm(Golovi ~ PosedLopte + SuteviUOkvir + Korneri)
+Error in eval(expr, envir, enclos) : object 'Golovi' not found
+> model1 = lm(Golovi ~ PosedLopte + SuteviUOkvir + Korneri, data = Premier)
+Error in eval(expr, envir, enclos) : object 'SuteviUOkvir' not found
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri, data = Premier)
+> str(Premier)
+'data.frame':   54 obs. of  14 variables:
+ $ Team           : Factor w/ 20 levels "Arsenal","Aston Villa",..: 10 12 8 18 9 1 17 13 7 6 ...
+ $ Golovi         : int  1 0 2 0 2 2 1 2 3 1 ...
+ $ PosedLopte     : int  67 33 66 34 57 43 71 29 41 59 ...
+ $ UkupnoSuteva   : int  15 8 19 14 14 5 20 10 32 9 ...
+ $ SuteviUokvir   : int  2 2 5 3 3 2 6 2 8 5 ...
+ $ SuteviVanOkvira: int  2 3 8 8 9 2 9 5 14 3 ...
+ $ BlokiraniSutevi: int  7 3 6 3 2 1 5 3 10 1 ...
+ $ SlobodniUdarci : int  11 11 17 12 13 19 19 9 10 6 ...
+ $ Korneri        : int  6 1 8 8 7 2 10 2 12 4 ...
+ $ Ofsajdi        : int  1 0 2 1 3 3 1 4 2 1 ...
+ $ OdbraneGolmana : int  2 1 3 3 0 1 0 5 4 5 ...
+ $ Prekrsaji      : int  10 11 10 15 16 10 8 15 4 12 ...
+ $ ZutiKartoni    : int  1 1 1 2 2 1 0 3 0 3 ...
+ $ CrveniKartoni  : int  0 0 0 0 0 0 0 0 0 0 ...
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + Korneri, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1080 -0.8224 -0.1052  0.5702  2.5810 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.480803   0.601656   0.799    0.428    
+PosedLopte   -0.006806   0.011352  -0.600    0.551    
+SuteviUokvir  0.395530   0.075445   5.243  3.2e-06 ***
+Korneri      -0.038509   0.053764  -0.716    0.477    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.017 on 50 degrees of freedom
+Multiple R-squared:  0.3635,    Adjusted R-squared:  0.3253 
+F-statistic: 9.516 on 3 and 50 DF,  p-value: 4.444e-05
+
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + UkupnoSuteva + SlobodniUdarci, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + Korneri + UkupnoSuteva + 
+    SlobodniUdarci, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.0443 -0.7396 -0.1463  0.6297  2.6822 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)     0.360927   0.721560   0.500    0.619    
+PosedLopte     -0.010638   0.012177  -0.874    0.387    
+SuteviUokvir    0.428960   0.084903   5.052 6.74e-06 ***
+Korneri         0.001931   0.067465   0.029    0.977    
+UkupnoSuteva   -0.034155   0.041139  -0.830    0.411    
+SlobodniUdarci  0.032649   0.040006   0.816    0.418    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.023 on 48 degrees of freedom
+Multiple R-squared:  0.3819,    Adjusted R-squared:  0.3175 
+F-statistic:  5.93 on 5 and 48 DF,  p-value: 0.00024
+
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + UkupnoSuteva + SuteviVanOkvira, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + Korneri + UkupnoSuteva + 
+    SuteviVanOkvira, data = Premier)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.19699 -0.71179 -0.04234  0.59918  2.24193 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      1.09348    0.68418   1.598 0.116552    
+PosedLopte      -0.01368    0.01195  -1.145 0.257886    
+SuteviUokvir     0.34879    0.09762   3.573 0.000816 ***
+Korneri          0.01435    0.06688   0.215 0.830999    
+UkupnoSuteva     0.03380    0.05987   0.565 0.574975    
+SuteviVanOkvira -0.15484    0.09831  -1.575 0.121816    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.004 on 48 degrees of freedom
+Multiple R-squared:  0.4041,    Adjusted R-squared:  0.342 
+F-statistic: 6.509 on 5 and 48 DF,  p-value: 0.0001076
+
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + SuteviVanOkvira, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + 
+    SuteviVanOkvira, data = Premier)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.21038 -0.72081 -0.04307  0.57932  2.25331 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      1.07737    0.67339   1.600 0.116046    
+PosedLopte      -0.01311    0.01154  -1.137 0.261240    
+SuteviUokvir     0.34996    0.09651   3.626 0.000684 ***
+UkupnoSuteva     0.03721    0.05716   0.651 0.518058    
+SuteviVanOkvira -0.15120    0.09588  -1.577 0.121263    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9942 on 49 degrees of freedom
+Multiple R-squared:  0.4035,    Adjusted R-squared:  0.3548 
+F-statistic: 8.287 on 4 and 49 DF,  p-value: 3.462e-05
+
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Prekrsaji, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + 
+    SuteviVanOkvira + Prekrsaji, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2407 -0.7239 -0.1101  0.6474  2.0397 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      1.59257    0.79295   2.008 0.050244 .  
+PosedLopte      -0.01385    0.01150  -1.204 0.234336    
+SuteviUokvir     0.36392    0.09673   3.762 0.000458 ***
+UkupnoSuteva     0.02334    0.05801   0.402 0.689301    
+SuteviVanOkvira -0.12999    0.09700  -1.340 0.186531    
+Prekrsaji       -0.04495    0.03698  -1.215 0.230156    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9894 on 48 degrees of freedom
+Multiple R-squared:  0.4213,    Adjusted R-squared:  0.361 
+F-statistic: 6.989 on 5 and 48 DF,  p-value: 5.63e-05
+
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Prekrsaji + ZutiKartoni, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + 
+    SuteviVanOkvira + Prekrsaji + ZutiKartoni, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.0138 -0.7374 -0.1191  0.5934  1.8942 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      1.59488    0.79159   2.015 0.049669 *  
+PosedLopte      -0.01478    0.01151  -1.284 0.205353    
+SuteviUokvir     0.35344    0.09705   3.642 0.000673 ***
+UkupnoSuteva     0.04247    0.06057   0.701 0.486670    
+SuteviVanOkvira -0.16843    0.10318  -1.632 0.109274    
+Prekrsaji       -0.02392    0.04174  -0.573 0.569374    
+ZutiKartoni     -0.11010    0.10201  -1.079 0.285979    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9877 on 47 degrees of freedom
+Multiple R-squared:  0.4353,    Adjusted R-squared:  0.3632 
+F-statistic: 6.039 on 6 and 47 DF,  p-value: 9.676e-05
+
+> Premier = read.csv("Premier_train.csv")
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Prekrsaji + ZutiKartoni + Kvota, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + 
+    SuteviVanOkvira + Prekrsaji + ZutiKartoni + Kvota, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.9108 -0.7493 -0.0395  0.6692  1.8561 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      2.30762    0.96794   2.384  0.02131 *  
+PosedLopte      -0.02159    0.01264  -1.708  0.09446 .  
+SuteviUokvir     0.34708    0.09657   3.594  0.00079 ***
+UkupnoSuteva     0.02977    0.06102   0.488  0.62796    
+SuteviVanOkvira -0.14429    0.10430  -1.383  0.17322    
+Prekrsaji       -0.02553    0.04150  -0.615  0.54147    
+ZutiKartoni     -0.12134    0.10176  -1.192  0.23924    
+Kvota           -0.07359    0.05824  -1.264  0.21273    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9815 on 46 degrees of freedom
+Multiple R-squared:  0.4543,    Adjusted R-squared:  0.3712 
+F-statistic:  5.47 on 7 and 46 DF,  p-value: 0.0001291
+
+> Premier = read.csv("Premier_train.csv")
+> model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Kvota + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + 
+    SuteviVanOkvira + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5625 -0.6344 -0.0509  0.4721  2.8324 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      1.22092    0.74657   1.635 0.108651    
+PosedLopte      -0.01267    0.01103  -1.148 0.256591    
+SuteviUokvir     0.29281    0.08420   3.478 0.001100 ** 
+UkupnoSuteva    -0.01461    0.05104  -0.286 0.775889    
+SuteviVanOkvira -0.05780    0.08628  -0.670 0.506189    
+Kvota           -0.02855    0.05108  -0.559 0.578844    
+Pobednik         1.18320    0.28274   4.185 0.000124 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8567 on 47 degrees of freedom
+Multiple R-squared:  0.5752,    Adjusted R-squared:  0.5209 
+F-statistic: 10.61 on 6 and 47 DF,  p-value: 2.012e-07
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + Kvota + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + Kvota + Pobednik, 
+    data = Premier)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.54007 -0.62467 -0.03906  0.59456  2.97926 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.507427   0.421975   1.203 0.234947    
+SuteviUokvir  0.314656   0.074683   4.213 0.000108 ***
+UkupnoSuteva -0.045276   0.027565  -1.643 0.106886    
+Kvota        -0.009498   0.043755  -0.217 0.829056    
+Pobednik      1.246722   0.274603   4.540 3.67e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8524 on 49 degrees of freedom
+Multiple R-squared:  0.5615,    Adjusted R-squared:  0.5257 
+F-statistic: 15.69 on 4 and 49 DF,  p-value: 2.491e-08
+
+> model1 = lm(Golovi ~ SuteviUokvir + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6508 -0.6457 -0.1239  0.6059  2.8627 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.11038    0.27448   0.402   0.6893    
+SuteviUokvir  0.25673    0.06405   4.009   0.0002 ***
+Pobednik      1.23632    0.27204   4.545 3.41e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8584 on 51 degrees of freedom
+Multiple R-squared:  0.5372,    Adjusted R-squared:  0.5191 
+F-statistic:  29.6 on 2 and 51 DF,  p-value: 2.934e-09
+
+> model1 = lm(Golovi ~ SuteviUokvir + Kvota + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6621 -0.6415 -0.1234  0.5995  2.8506 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.144823   0.365676   0.396 0.693758    
+SuteviUokvir  0.254666   0.066240   3.845 0.000342 ***
+Kvota        -0.006418   0.044451  -0.144 0.885775    
+Pobednik      1.229251   0.279016   4.406 5.58e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8668 on 50 degrees of freedom
+Multiple R-squared:  0.5374,    Adjusted R-squared:  0.5096 
+F-statistic: 19.36 on 3 and 50 DF,  p-value: 1.821e-08
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + Pobednik, 
+    data = Premier)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.53085 -0.62421 -0.02507  0.60927  2.99632 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.45449    0.34109   1.332    0.189    
+SuteviUokvir  0.31737    0.07292   4.352 6.65e-05 ***
+UkupnoSuteva -0.04502    0.02728  -1.651    0.105    
+Pobednik      1.25706    0.26785   4.693 2.12e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8443 on 50 degrees of freedom
+Multiple R-squared:  0.5611,    Adjusted R-squared:  0.5348 
+F-statistic: 21.31 on 3 and 50 DF,  p-value: 4.984e-09
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5967 -0.6458 -0.0542  0.5819  2.8825 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.49878    0.35577   1.402 0.167234    
+SuteviUokvir     0.29826    0.08348   3.573 0.000804 ***
+UkupnoSuteva    -0.02628    0.04758  -0.552 0.583267    
+SuteviVanOkvira -0.03848    0.07974  -0.483 0.631579    
+Pobednik         1.22761    0.27674   4.436 5.19e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8508 on 49 degrees of freedom
+Multiple R-squared:  0.5632,    Adjusted R-squared:  0.5275 
+F-statistic: 15.79 on 4 and 49 DF,  p-value: 2.277e-08
+
+> model2 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model2)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5967 -0.6458 -0.0542  0.5819  2.8825 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.49878    0.35577   1.402 0.167234    
+SuteviUokvir     0.29826    0.08348   3.573 0.000804 ***
+UkupnoSuteva    -0.02628    0.04758  -0.552 0.583267    
+SuteviVanOkvira -0.03848    0.07974  -0.483 0.631579    
+Pobednik         1.22761    0.27674   4.436 5.19e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8508 on 49 degrees of freedom
+Multiple R-squared:  0.5632,    Adjusted R-squared:  0.5275 
+F-statistic: 15.79 on 4 and 49 DF,  p-value: 2.277e-08
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5967 -0.6458 -0.0542  0.5819  2.8825 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.49878    0.35577   1.402 0.167234    
+SuteviUokvir     0.29826    0.08348   3.573 0.000804 ***
+UkupnoSuteva    -0.02628    0.04758  -0.552 0.583267    
+SuteviVanOkvira -0.03848    0.07974  -0.483 0.631579    
+Pobednik         1.22761    0.27674   4.436 5.19e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8508 on 49 degrees of freedom
+Multiple R-squared:  0.5632,    Adjusted R-squared:  0.5275 
+F-statistic: 15.79 on 4 and 49 DF,  p-value: 2.277e-08
+
+> model = lm(Golovi ~ SuteviUokvir + Kvota + Pobednik, data = Premier)
+> summary(model)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6621 -0.6415 -0.1234  0.5995  2.8506 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.144823   0.365676   0.396 0.693758    
+SuteviUokvir  0.254666   0.066240   3.845 0.000342 ***
+Kvota        -0.006418   0.044451  -0.144 0.885775    
+Pobednik      1.229251   0.279016   4.406 5.58e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8668 on 50 degrees of freedom
+Multiple R-squared:  0.5374,    Adjusted R-squared:  0.5096 
+F-statistic: 19.36 on 3 and 50 DF,  p-value: 1.821e-08
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6621 -0.6415 -0.1234  0.5995  2.8506 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.144823   0.365676   0.396 0.693758    
+SuteviUokvir  0.254666   0.066240   3.845 0.000342 ***
+Kvota        -0.006418   0.044451  -0.144 0.885775    
+Pobednik      1.229251   0.279016   4.406 5.58e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8668 on 50 degrees of freedom
+Multiple R-squared:  0.5374,    Adjusted R-squared:  0.5096 
+F-statistic: 19.36 on 3 and 50 DF,  p-value: 1.821e-08
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5967 -0.6458 -0.0542  0.5819  2.8825 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.49878    0.35577   1.402 0.167234    
+SuteviUokvir     0.29826    0.08348   3.573 0.000804 ***
+UkupnoSuteva    -0.02628    0.04758  -0.552 0.583267    
+SuteviVanOkvira -0.03848    0.07974  -0.483 0.631579    
+Pobednik         1.22761    0.27674   4.436 5.19e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8508 on 49 degrees of freedom
+Multiple R-squared:  0.5632,    Adjusted R-squared:  0.5275 
+F-statistic: 15.79 on 4 and 49 DF,  p-value: 2.277e-08
+
+> Premier = read.csv("Premier_train.csv")
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.4332 -0.5943 -0.1714  0.4869  9.9223 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.3625857  0.1378873   2.630  0.00892 ** 
+SuteviUokvir     0.2822879  0.0345080   8.180  5.1e-15 ***
+UkupnoSuteva    -0.0378765  0.0205738  -1.841  0.06645 .  
+SuteviVanOkvira  0.0008801  0.0297432   0.030  0.97641    
+Pobednik         1.0195450  0.1167437   8.733  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9895 on 355 degrees of freedom
+Multiple R-squared:  0.4367,    Adjusted R-squared:  0.4303 
+F-statistic: 68.79 on 4 and 355 DF,  p-value: < 2.2e-16
+
+> model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + Pobednik + Kvota, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + Pobednik + 
+    Kvota, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.4540 -0.6107 -0.1198  0.5133  9.8496 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.55826    0.19545   2.856  0.00454 ** 
+SuteviUokvir  0.27839    0.03075   9.054  < 2e-16 ***
+UkupnoSuteva -0.04137    0.01308  -3.163  0.00169 ** 
+Pobednik      0.98388    0.11914   8.258 2.95e-15 ***
+Kvota        -0.03316    0.02364  -1.403  0.16161    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9867 on 355 degrees of freedom
+Multiple R-squared:  0.4398,    Adjusted R-squared:  0.4335 
+F-statistic: 69.67 on 4 and 355 DF,  p-value: < 2.2e-16
+
+>  model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> 
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.4332 -0.5943 -0.1714  0.4869  9.9223 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.3625857  0.1378873   2.630  0.00892 ** 
+SuteviUokvir     0.2822879  0.0345080   8.180  5.1e-15 ***
+UkupnoSuteva    -0.0378765  0.0205738  -1.841  0.06645 .  
+SuteviVanOkvira  0.0008801  0.0297432   0.030  0.97641    
+Pobednik         1.0195450  0.1167437   8.733  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9895 on 355 degrees of freedom
+Multiple R-squared:  0.4367,    Adjusted R-squared:  0.4303 
+F-statistic: 68.79 on 4 and 355 DF,  p-value: < 2.2e-16
+
+> summary(Premier)
+             Team         Golovi         PosedLopte     UkupnoSuteva  
+ Norwich       : 19   Min.   : 0.000   Min.   :24.00   Min.   : 2.00  
+ Arsenal       : 18   1st Qu.: 0.000   1st Qu.:43.75   1st Qu.: 9.00  
+ Aston Villa   : 18   Median : 1.000   Median :50.00   Median :12.00  
+ Bournemouth   : 18   Mean   : 1.408   Mean   :50.01   Mean   :12.85  
+ Chelsea       : 18   3rd Qu.: 2.000   3rd Qu.:56.25   3rd Qu.:16.00  
+ Crystal Palace: 18   Max.   :11.000   Max.   :76.00   Max.   :37.00  
+ (Other)       :251                                                   
+  SuteviUokvir    SuteviVanOkvira  BlokiraniSutevi  SlobodniUdarci  
+ Min.   : 0.000   Min.   : 0.000   Min.   : 0.000   Min.   :  4.00  
+ 1st Qu.: 2.000   1st Qu.: 3.000   1st Qu.: 2.000   1st Qu.: 10.00  
+ Median : 4.000   Median : 5.000   Median : 3.000   Median : 12.00  
+ Mean   : 4.108   Mean   : 5.181   Mean   : 3.608   Mean   : 13.14  
+ 3rd Qu.: 5.000   3rd Qu.: 7.000   3rd Qu.: 5.000   3rd Qu.: 15.00  
+ Max.   :14.000   Max.   :22.000   Max.   :15.000   Max.   :115.00  
+                                                                    
+    Korneri          Ofsajdi      OdbraneGolmana     Prekrsaji    
+ Min.   : 0.000   Min.   :0.000   Min.   : 0.000   Min.   : 0.00  
+ 1st Qu.: 3.000   1st Qu.:1.000   1st Qu.: 1.000   1st Qu.: 8.00  
+ Median : 5.000   Median :2.000   Median : 2.500   Median :11.00  
+ Mean   : 5.467   Mean   :1.947   Mean   : 2.783   Mean   :10.69  
+ 3rd Qu.: 7.000   3rd Qu.:3.000   3rd Qu.: 4.000   3rd Qu.:13.00  
+ Max.   :16.000   Max.   :9.000   Max.   :17.000   Max.   :21.00  
+                                                                  
+  ZutiKartoni    CrveniKartoni      Kvota           Pobednik     
+ Min.   :0.000   Min.   :0.00   Min.   : 1.170   Min.   :0.0000  
+ 1st Qu.:0.750   1st Qu.:0.00   1st Qu.: 1.950   1st Qu.:0.0000  
+ Median :1.000   Median :0.00   Median : 2.775   Median :0.0000  
+ Mean   :1.478   Mean   :0.15   Mean   : 3.538   Mean   :0.3611  
+ 3rd Qu.:2.000   3rd Qu.:0.00   3rd Qu.: 4.200   3rd Qu.:1.0000  
+ Max.   :9.000   Max.   :9.00   Max.   :19.000   Max.   :1.0000  
+                                                                 
+    X          
+ Mode:logical  
+ NA's:360      
+               
+               
+               
+               
+               
+> Premier = read.csv("Premier_train.csv")
+> summary(Preimer)
+Error in summary(Preimer) : object 'Preimer' not found
+> summary(Premier)
+             Team         Golovi        PosedLopte     UkupnoSuteva  
+ Norwich       : 19   Min.   :0.000   Min.   :24.00   Min.   : 2.00  
+ Arsenal       : 18   1st Qu.:0.000   1st Qu.:43.75   1st Qu.: 9.00  
+ Aston Villa   : 18   Median :1.000   Median :50.00   Median :12.00  
+ Bournemouth   : 18   Mean   :1.381   Mean   :50.01   Mean   :12.85  
+ Chelsea       : 18   3rd Qu.:2.000   3rd Qu.:56.25   3rd Qu.:16.00  
+ Crystal Palace: 18   Max.   :6.000   Max.   :76.00   Max.   :37.00  
+ (Other)       :251                                                  
+  SuteviUokvir    SuteviVanOkvira  BlokiraniSutevi  SlobodniUdarci  
+ Min.   : 0.000   Min.   : 0.000   Min.   : 0.000   Min.   :  4.00  
+ 1st Qu.: 2.000   1st Qu.: 3.000   1st Qu.: 2.000   1st Qu.: 10.00  
+ Median : 4.000   Median : 5.000   Median : 3.000   Median : 12.00  
+ Mean   : 4.108   Mean   : 5.181   Mean   : 3.608   Mean   : 12.86  
+ 3rd Qu.: 5.000   3rd Qu.: 7.000   3rd Qu.: 5.000   3rd Qu.: 15.00  
+ Max.   :14.000   Max.   :22.000   Max.   :15.000   Max.   :113.00  
+                                                                    
+    Korneri          Ofsajdi      OdbraneGolmana     Prekrsaji    
+ Min.   : 0.000   Min.   :0.000   Min.   : 0.000   Min.   : 0.00  
+ 1st Qu.: 3.000   1st Qu.:1.000   1st Qu.: 1.000   1st Qu.: 8.00  
+ Median : 5.000   Median :2.000   Median : 2.500   Median :11.00  
+ Mean   : 5.467   Mean   :1.947   Mean   : 2.783   Mean   :10.69  
+ 3rd Qu.: 7.000   3rd Qu.:3.000   3rd Qu.: 4.000   3rd Qu.:13.00  
+ Max.   :16.000   Max.   :9.000   Max.   :17.000   Max.   :21.00  
+                                                                  
+  ZutiKartoni    CrveniKartoni      Kvota           Pobednik     
+ Min.   :0.000   Min.   :0.00   Min.   : 1.170   Min.   :0.0000  
+ 1st Qu.:0.750   1st Qu.:0.00   1st Qu.: 1.950   1st Qu.:0.0000  
+ Median :1.000   Median :0.00   Median : 2.775   Median :0.0000  
+ Mean   :1.478   Mean   :0.15   Mean   : 3.538   Mean   :0.3611  
+ 3rd Qu.:2.000   3rd Qu.:0.00   3rd Qu.: 4.200   3rd Qu.:1.0000  
+ Max.   :9.000   Max.   :9.00   Max.   :19.000   Max.   :1.0000  
+                                                                 
+> Premier = read.csv("Premier_train.csv")
+> summary(Premier)
+             Team         Golovi        PosedLopte     UkupnoSuteva  
+ Norwich       : 19   Min.   :0.000   Min.   :24.00   Min.   : 2.00  
+ Arsenal       : 18   1st Qu.:0.000   1st Qu.:43.75   1st Qu.: 9.00  
+ Aston Villa   : 18   Median :1.000   Median :50.00   Median :12.00  
+ Bournemouth   : 18   Mean   :1.381   Mean   :50.01   Mean   :12.85  
+ Chelsea       : 18   3rd Qu.:2.000   3rd Qu.:56.25   3rd Qu.:16.00  
+ Crystal Palace: 18   Max.   :6.000   Max.   :76.00   Max.   :37.00  
+ (Other)       :251                                                  
+  SuteviUokvir    SuteviVanOkvira  BlokiraniSutevi  SlobodniUdarci 
+ Min.   : 0.000   Min.   : 0.000   Min.   : 0.000   Min.   : 4.00  
+ 1st Qu.: 2.000   1st Qu.: 3.000   1st Qu.: 2.000   1st Qu.:10.00  
+ Median : 4.000   Median : 5.000   Median : 3.000   Median :12.00  
+ Mean   : 4.108   Mean   : 5.181   Mean   : 3.608   Mean   :12.58  
+ 3rd Qu.: 5.000   3rd Qu.: 7.000   3rd Qu.: 5.000   3rd Qu.:15.00  
+ Max.   :14.000   Max.   :22.000   Max.   :15.000   Max.   :24.00  
+                                                                   
+    Korneri          Ofsajdi      OdbraneGolmana     Prekrsaji    
+ Min.   : 0.000   Min.   :0.000   Min.   : 0.000   Min.   : 0.00  
+ 1st Qu.: 3.000   1st Qu.:1.000   1st Qu.: 1.000   1st Qu.: 8.00  
+ Median : 5.000   Median :2.000   Median : 2.500   Median :11.00  
+ Mean   : 5.467   Mean   :1.947   Mean   : 2.783   Mean   :10.69  
+ 3rd Qu.: 7.000   3rd Qu.:3.000   3rd Qu.: 4.000   3rd Qu.:13.00  
+ Max.   :16.000   Max.   :9.000   Max.   :17.000   Max.   :21.00  
+                                                                  
+  ZutiKartoni    CrveniKartoni        Kvota           Pobednik     
+ Min.   :0.000   Min.   :0.0000   Min.   : 1.170   Min.   :0.0000  
+ 1st Qu.:1.000   1st Qu.:0.0000   1st Qu.: 1.950   1st Qu.:0.0000  
+ Median :1.000   Median :0.0000   Median : 2.775   Median :0.0000  
+ Mean   :1.517   Mean   :0.1111   Mean   : 3.538   Mean   :0.3611  
+ 3rd Qu.:2.000   3rd Qu.:0.0000   3rd Qu.: 4.200   3rd Qu.:1.0000  
+ Max.   :9.000   Max.   :9.0000   Max.   :19.000   Max.   :1.0000  
+                                                                   
+> Premier = read.csv("Premier_train.csv")
+> summary(Premier)
+             Team         Golovi        PosedLopte     UkupnoSuteva  
+ Norwich       : 19   Min.   :0.000   Min.   :24.00   Min.   : 2.00  
+ Arsenal       : 18   1st Qu.:0.000   1st Qu.:43.75   1st Qu.: 9.00  
+ Aston Villa   : 18   Median :1.000   Median :50.00   Median :12.00  
+ Bournemouth   : 18   Mean   :1.381   Mean   :50.01   Mean   :12.85  
+ Chelsea       : 18   3rd Qu.:2.000   3rd Qu.:56.25   3rd Qu.:16.00  
+ Crystal Palace: 18   Max.   :6.000   Max.   :76.00   Max.   :37.00  
+ (Other)       :251                                                  
+  SuteviUokvir    SuteviVanOkvira  BlokiraniSutevi  SlobodniUdarci 
+ Min.   : 0.000   Min.   : 0.000   Min.   : 0.000   Min.   : 4.00  
+ 1st Qu.: 2.000   1st Qu.: 3.000   1st Qu.: 2.000   1st Qu.:10.00  
+ Median : 4.000   Median : 5.000   Median : 3.000   Median :12.00  
+ Mean   : 4.108   Mean   : 5.181   Mean   : 3.608   Mean   :12.58  
+ 3rd Qu.: 5.000   3rd Qu.: 7.000   3rd Qu.: 5.000   3rd Qu.:15.00  
+ Max.   :14.000   Max.   :22.000   Max.   :15.000   Max.   :24.00  
+                                                                   
+    Korneri          Ofsajdi      OdbraneGolmana     Prekrsaji    
+ Min.   : 0.000   Min.   :0.000   Min.   : 0.000   Min.   : 0.00  
+ 1st Qu.: 3.000   1st Qu.:1.000   1st Qu.: 1.000   1st Qu.: 8.00  
+ Median : 5.000   Median :2.000   Median : 2.500   Median :11.00  
+ Mean   : 5.467   Mean   :1.947   Mean   : 2.783   Mean   :10.69  
+ 3rd Qu.: 7.000   3rd Qu.:3.000   3rd Qu.: 4.000   3rd Qu.:13.00  
+ Max.   :16.000   Max.   :9.000   Max.   :17.000   Max.   :21.00  
+                                                                  
+  ZutiKartoni    CrveniKartoni         Kvota           Pobednik     
+ Min.   :0.000   Min.   :0.00000   Min.   : 1.170   Min.   :0.0000  
+ 1st Qu.:1.000   1st Qu.:0.00000   1st Qu.: 1.950   1st Qu.:0.0000  
+ Median :1.000   Median :0.00000   Median : 2.775   Median :0.0000  
+ Mean   :1.544   Mean   :0.08333   Mean   : 3.538   Mean   :0.3611  
+ 3rd Qu.:2.000   3rd Qu.:0.00000   3rd Qu.: 4.200   3rd Qu.:1.0000  
+ Max.   :9.000   Max.   :1.00000   Max.   :19.000   Max.   :1.0000  
+                                                                    
+>  model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3640 -0.5702 -0.1243  0.5034  3.1771 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.30230    0.11659   2.593  0.00991 ** 
+SuteviUokvir     0.27985    0.02918   9.591  < 2e-16 ***
+UkupnoSuteva    -0.04034    0.01740  -2.319  0.02095 *  
+SuteviVanOkvira  0.01168    0.02515   0.465  0.64250    
+Pobednik         1.07011    0.09871  10.841  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8366 on 355 degrees of freedom
+Multiple R-squared:  0.5266,    Adjusted R-squared:  0.5213 
+F-statistic: 98.72 on 4 and 355 DF,  p-value: < 2.2e-16
+
+> Premier = read.csv("Premier_train.csv")
+>  model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2586 -0.5908 -0.1267  0.4942  3.2051 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.25269    0.10914   2.315   0.0211 *  
+SuteviUokvir     0.26307    0.02703   9.734   <2e-16 ***
+UkupnoSuteva    -0.03508    0.01597  -2.196   0.0286 *  
+SuteviVanOkvira  0.01279    0.02391   0.535   0.5930    
+Pobednik         1.11046    0.09196  12.076   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.838 on 415 degrees of freedom
+Multiple R-squared:  0.5203,    Adjusted R-squared:  0.5157 
+F-statistic: 112.5 on 4 and 415 DF,  p-value: < 2.2e-16
+
+> Premier = read.csv("Premier_train.csv")
+>  model1 = lm(Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2591 -0.5913 -0.1269  0.4965  3.2016 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.25332    0.10916   2.321   0.0208 *  
+SuteviUokvir     0.26258    0.02722   9.647   <2e-16 ***
+UkupnoSuteva    -0.03447    0.01615  -2.134   0.0334 *  
+SuteviVanOkvira  0.01156    0.02419   0.478   0.6330    
+Pobednik         1.11012    0.09200  12.067   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8381 on 415 degrees of freedom
+Multiple R-squared:  0.5203,    Adjusted R-squared:  0.5156 
+F-statistic: 112.5 on 4 and 415 DF,  p-value: < 2.2e-16
+
+> str(Premier)
+'data.frame':   420 obs. of  16 variables:
+ $ Tim            : Factor w/ 20 levels "Arsenal","Aston Villa",..: 10 12 8 18 9 1 17 13 7 6 ...
+ $ Golovi         : int  1 0 2 0 2 2 1 2 3 1 ...
+ $ PosedLopte     : int  67 33 66 34 57 43 71 29 41 59 ...
+ $ UkupnoSuteva   : int  15 8 19 14 14 5 20 10 32 9 ...
+ $ SuteviUokvir   : int  2 2 5 3 3 2 6 2 8 5 ...
+ $ SuteviVanOkvira: int  6 3 8 8 9 2 9 5 14 3 ...
+ $ BlokiraniSutevi: int  7 3 6 3 2 1 5 3 10 1 ...
+ $ SlobodniUdarci : int  11 11 17 12 13 19 19 9 10 6 ...
+ $ Korneri        : int  6 1 8 8 7 2 10 2 12 4 ...
+ $ Ofsajdi        : int  1 0 2 1 3 3 1 4 2 1 ...
+ $ OdbraneGolmana : int  2 1 3 3 0 1 0 5 4 5 ...
+ $ Prekrsaji      : int  10 11 10 15 16 10 8 15 4 12 ...
+ $ ZutiKartoni    : int  1 1 1 2 2 1 0 3 0 3 ...
+ $ CrveniKartoni  : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Kvota          : num  2.1 3.8 1.57 6 2.25 3.3 2.2 3.6 1.85 4.1 ...
+ $ Pobednik       : int  1 0 1 0 0 0 0 1 1 0 ...
+>  model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + SuteviVanOkvira + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + UkupnoSuteva + 
+    SuteviVanOkvira + Korneri + Ofsajdi + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2970 -0.5516 -0.1136  0.4707  3.1381 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.810123   0.294864   2.747  0.00627 ** 
+PosedLopte      -0.005698   0.004971  -1.146  0.25241    
+SuteviUokvir     0.252549   0.026803   9.423  < 2e-16 ***
+UkupnoSuteva    -0.008315   0.017344  -0.479  0.63191    
+SuteviVanOkvira  0.002282   0.023889   0.096  0.92395    
+Korneri         -0.066282   0.016258  -4.077 5.48e-05 ***
+Ofsajdi          0.009441   0.025401   0.372  0.71033    
+Kvota           -0.038849   0.020771  -1.870  0.06214 .  
+Pobednik         1.020628   0.093748  10.887  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8215 on 411 degrees of freedom
+Multiple R-squared:  0.5435,    Adjusted R-squared:  0.5346 
+F-statistic: 61.16 on 8 and 411 DF,  p-value: < 2.2e-16
+
+>  model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    UkupnoSuteva + SuteviVanOkvira + Korneri + Ofsajdi + Kvota + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3151 -0.5404 -0.1053  0.4739  3.1554 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.814299   0.295283   2.758  0.00608 ** 
+PosedLopte      -0.005847   0.004986  -1.173  0.24165    
+SuteviUokvir     0.234503   0.047232   4.965 1.01e-06 ***
+BlokiraniSutevi -0.022565   0.048607  -0.464  0.64273    
+UkupnoSuteva     0.010262   0.043620   0.235  0.81412    
+SuteviVanOkvira -0.013703   0.041922  -0.327  0.74393    
+Korneri         -0.064958   0.016521  -3.932 9.89e-05 ***
+Ofsajdi          0.008750   0.025468   0.344  0.73135    
+Kvota           -0.039353   0.020819  -1.890  0.05943 .  
+Pobednik         1.016806   0.094198  10.794  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8223 on 410 degrees of freedom
+Multiple R-squared:  0.5437,    Adjusted R-squared:  0.5337 
+F-statistic: 54.29 on 9 and 410 DF,  p-value: < 2.2e-16
+
+>  model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + 
+    Ofsajdi + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3569 -0.5347 -0.1167  0.4615  3.1722 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.715062   0.327801   2.181 0.029723 *  
+PosedLopte      -0.006093   0.005002  -1.218 0.223863    
+SuteviUokvir     0.234396   0.047262   4.960 1.04e-06 ***
+BlokiraniSutevi -0.023103   0.048644  -0.475 0.635074    
+UkupnoSuteva     0.010488   0.043649   0.240 0.810234    
+SuteviVanOkvira -0.013129   0.041956  -0.313 0.754493    
+SlobodniUdarci   0.007941   0.011359   0.699 0.484919    
+Korneri         -0.064745   0.016534  -3.916 0.000106 ***
+Ofsajdi          0.009972   0.025544   0.390 0.696449    
+Kvota           -0.038302   0.020886  -1.834 0.067402 .  
+Pobednik         1.019246   0.094322  10.806  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8228 on 409 degrees of freedom
+Multiple R-squared:  0.5443,    Adjusted R-squared:  0.5331 
+F-statistic: 48.85 on 10 and 409 DF,  p-value: < 2.2e-16
+
+>  model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik + CrveniKartoni, data = Premier)
+> summary(model1)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + 
+    Ofsajdi + Kvota + Pobednik + CrveniKartoni, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3524 -0.5397 -0.1026  0.4679  3.1676 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.733277   0.337704   2.171 0.030479 *  
+PosedLopte      -0.006232   0.005044  -1.235 0.217383    
+SuteviUokvir     0.234419   0.047317   4.954 1.07e-06 ***
+BlokiraniSutevi -0.023064   0.048700  -0.474 0.636044    
+UkupnoSuteva     0.010440   0.043700   0.239 0.811309    
+SuteviVanOkvira -0.013583   0.042052  -0.323 0.746861    
+SlobodniUdarci   0.007883   0.011375   0.693 0.488699    
+Korneri         -0.064742   0.016553  -3.911 0.000108 ***
+Ofsajdi          0.009508   0.025654   0.371 0.711120    
+Kvota           -0.039100   0.021199  -1.844 0.065850 .  
+Pobednik         1.015347   0.095957  10.581  < 2e-16 ***
+CrveniKartoni   -0.034538   0.150987  -0.229 0.819177    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8237 on 408 degrees of freedom
+Multiple R-squared:  0.5443,    Adjusted R-squared:  0.532 
+F-statistic: 44.31 on 11 and 408 DF,  p-value: < 2.2e-16
+
+>  model2 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+> summary(model2)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + 
+    Ofsajdi + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3569 -0.5347 -0.1167  0.4615  3.1722 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.715062   0.327801   2.181 0.029723 *  
+PosedLopte      -0.006093   0.005002  -1.218 0.223863    
+SuteviUokvir     0.234396   0.047262   4.960 1.04e-06 ***
+BlokiraniSutevi -0.023103   0.048644  -0.475 0.635074    
+UkupnoSuteva     0.010488   0.043649   0.240 0.810234    
+SuteviVanOkvira -0.013129   0.041956  -0.313 0.754493    
+SlobodniUdarci   0.007941   0.011359   0.699 0.484919    
+Korneri         -0.064745   0.016534  -3.916 0.000106 ***
+Ofsajdi          0.009972   0.025544   0.390 0.696449    
+Kvota           -0.038302   0.020886  -1.834 0.067402 .  
+Pobednik         1.019246   0.094322  10.806  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8228 on 409 degrees of freedom
+Multiple R-squared:  0.5443,    Adjusted R-squared:  0.5331 
+F-statistic: 48.85 on 10 and 409 DF,  p-value: < 2.2e-16
+
+>  model3 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+> summary(model3)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3462 -0.5354 -0.1185  0.4640  3.1702 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.711408   0.327072   2.175   0.0302 *  
+PosedLopte      -0.005930   0.004950  -1.198   0.2316    
+SuteviUokvir     0.244648   0.020303  12.050  < 2e-16 ***
+BlokiraniSutevi -0.012381   0.019340  -0.640   0.5224    
+SuteviVanOkvira -0.003788   0.015760  -0.240   0.8102    
+SlobodniUdarci   0.007920   0.011346   0.698   0.4855    
+Korneri         -0.064927   0.016498  -3.936 9.75e-05 ***
+Ofsajdi          0.010410   0.025450   0.409   0.6827    
+Kvota           -0.038045   0.020835  -1.826   0.0686 .  
+Pobednik         1.020691   0.094022  10.856  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8218 on 410 degrees of freedom
+Multiple R-squared:  0.5442,    Adjusted R-squared:  0.5342 
+F-statistic: 54.39 on 9 and 410 DF,  p-value: < 2.2e-16
+
+>  model4 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+> summary(model4)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    SlobodniUdarci + Korneri + Ofsajdi + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3733 -0.5314 -0.1135  0.4618  3.1804 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.701734   0.324214   2.164   0.0310 *  
+PosedLopte      -0.006017   0.004931  -1.220   0.2231    
+SuteviUokvir     0.244333   0.020238  12.073  < 2e-16 ***
+BlokiraniSutevi -0.013289   0.018946  -0.701   0.4835    
+SlobodniUdarci   0.008112   0.011305   0.718   0.4734    
+Korneri         -0.065608   0.016234  -4.041 6.34e-05 ***
+Ofsajdi          0.010421   0.025420   0.410   0.6821    
+Kvota           -0.037948   0.020807  -1.824   0.0689 .  
+Pobednik         1.020616   0.093913  10.868  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8209 on 411 degrees of freedom
+Multiple R-squared:  0.5441,    Adjusted R-squared:  0.5353 
+F-statistic: 61.32 on 8 and 411 DF,  p-value: < 2.2e-16
+
+>  model5 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Kvota +  Pobednik, data = Premier)
+> summary(model4)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    SlobodniUdarci + Korneri + Ofsajdi + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3733 -0.5314 -0.1135  0.4618  3.1804 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.701734   0.324214   2.164   0.0310 *  
+PosedLopte      -0.006017   0.004931  -1.220   0.2231    
+SuteviUokvir     0.244333   0.020238  12.073  < 2e-16 ***
+BlokiraniSutevi -0.013289   0.018946  -0.701   0.4835    
+SlobodniUdarci   0.008112   0.011305   0.718   0.4734    
+Korneri         -0.065608   0.016234  -4.041 6.34e-05 ***
+Ofsajdi          0.010421   0.025420   0.410   0.6821    
+Kvota           -0.037948   0.020807  -1.824   0.0689 .  
+Pobednik         1.020616   0.093913  10.868  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8209 on 411 degrees of freedom
+Multiple R-squared:  0.5441,    Adjusted R-squared:  0.5353 
+F-statistic: 61.32 on 8 and 411 DF,  p-value: < 2.2e-16
+
+> summary(model5)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    SlobodniUdarci + Korneri + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3651 -0.5353 -0.1132  0.4609  3.1902 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.729772   0.316598   2.305   0.0217 *  
+PosedLopte      -0.006100   0.004922  -1.239   0.2160    
+SuteviUokvir     0.244570   0.020209  12.102  < 2e-16 ***
+BlokiraniSutevi -0.013125   0.018923  -0.694   0.4883    
+SlobodniUdarci   0.007791   0.011266   0.692   0.4896    
+Korneri         -0.065560   0.016217  -4.043 6.31e-05 ***
+Kvota           -0.038441   0.020751  -1.853   0.0647 .  
+Pobednik         1.021901   0.093766  10.898  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8201 on 412 degrees of freedom
+Multiple R-squared:  0.544,     Adjusted R-squared:  0.5362 
+F-statistic:  70.2 on 7 and 412 DF,  p-value: < 2.2e-16
+
+>  model6 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + Korneri + Kvota +  Pobednik, data = Premier)
+> summary(model6)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + 
+    Korneri + Kvota + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3303 -0.5452 -0.1030  0.4733  3.1746 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.822941   0.286321   2.874  0.00426 ** 
+PosedLopte      -0.005867   0.004907  -1.196  0.23256    
+SuteviUokvir     0.244366   0.020194  12.101  < 2e-16 ***
+BlokiraniSutevi -0.013024   0.018911  -0.689  0.49141    
+Korneri         -0.065911   0.016199  -4.069 5.66e-05 ***
+Kvota           -0.039411   0.020691  -1.905  0.05750 .  
+Pobednik         1.019287   0.093631  10.886  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8195 on 413 degrees of freedom
+Multiple R-squared:  0.5434,    Adjusted R-squared:  0.5368 
+F-statistic: 81.93 on 6 and 413 DF,  p-value: < 2.2e-16
+
+>  model7 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
+> summary(model7)
+
+Call:
+lm(formula = Golovi ~ PosedLopte + SuteviUokvir + Korneri + Kvota + 
+    Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3486 -0.5514 -0.1102  0.4581  3.1274 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.828374   0.286031   2.896  0.00398 ** 
+PosedLopte   -0.006434   0.004835  -1.331  0.18403    
+SuteviUokvir  0.243746   0.020161  12.090  < 2e-16 ***
+Korneri      -0.070095   0.015007  -4.671 4.06e-06 ***
+Kvota        -0.039188   0.020675  -1.895  0.05873 .  
+Pobednik      1.023903   0.093331  10.971  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.819 on 414 degrees of freedom
+Multiple R-squared:  0.5429,    Adjusted R-squared:  0.5374 
+F-statistic: 98.34 on 5 and 414 DF,  p-value: < 2.2e-16
+
+>  model8 = lm(Golovi ~ SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
+> summary(model8)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + Korneri + Kvota + Pobednik, 
+    data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3352 -0.5520 -0.1211  0.4925  3.1250 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.50127    0.14638   3.425 0.000677 ***
+SuteviUokvir  0.24045    0.02003  12.006  < 2e-16 ***
+Korneri      -0.07569    0.01442  -5.250 2.44e-07 ***
+Kvota        -0.02646    0.01835  -1.442 0.149982    
+Pobednik      1.03715    0.09289  11.166  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8198 on 415 degrees of freedom
+Multiple R-squared:  0.5409,    Adjusted R-squared:  0.5365 
+F-statistic: 122.3 on 4 and 415 DF,  p-value: < 2.2e-16
+
+>  model9 = lm(Golovi ~ SuteviUokvir + Korneri +  Pobednik, data = Premier)
+> summary(model9)
+
+Call:
+lm(formula = Golovi ~ SuteviUokvir + Korneri + Pobednik, data = Premier)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.3581 -0.5566 -0.1177  0.4626  3.1630 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.34641    0.09962   3.477  0.00056 ***
+SuteviUokvir  0.24544    0.01975  12.426  < 2e-16 ***
+Korneri      -0.07017    0.01392  -5.041 6.92e-07 ***
+Pobednik      1.06676    0.09071  11.761  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8208 on 416 degrees of freedom
+Multiple R-squared:  0.5386,    Adjusted R-squared:  0.5353 
+F-statistic: 161.9 on 3 and 416 DF,  p-value: < 2.2e-16
+
+> save.image("C:\\Users\\Danijel\\Desktop\\RProjekat")
+> source("C:\\Users\\Danijel\\Desktop\\source.R")
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+In addition: Warning message:
+In file(filename, "r", encoding = encoding) :
+  cannot open file 'C:\Users\Danijel\Desktop\source.R': No such file or directory
+>  model9 = lm(Golovi ~ SuteviUokvir + Korneri +  Pobednik, data = Premier)
