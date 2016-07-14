@@ -72,22 +72,19 @@ F-statistic: 44.31 on 11 and 408 DF,  p-value: < 2.2e-16
 ```
 *Listing 3 - Statistički parametri regresionog modela1*
 
-U koloni *estimate* nalaze se koeficijenti koji stoje uz date nezavisne promenljive modela, a mađu njima se nalazi i slobodni član. 
+U koloni *estimate* nalaze se koeficijenti koji stoje uz date nezavisne promenljive modela, a među njima se nalazi i slobodni član. 
 Od najvećeg značaja su dve vrednosti: Multiple R-squared i Adjusted R- squared. One iznose 0.5443 i 0.532 i na osnovu toga se može 
-zaključiti da je model za sada veoma pogodan za predvidđanje broja golova na utakmici. Najveća vrednost koju ova dva koeficijenta mogu uzeti je 1 i što 
-je vrednost ove dve mere bliža jedinici to je model pogodniji za predviđanje. Osnovna mera koja se posmatra je Multiple R-squared, a  predstavlja srednju kvadratnu grešku modela. Daljim podešavanjem modela se teži da mera Adjusted R – squared ima blisku vrednost Multiple R-squared. Koeficijent Multiple R-squared dolazi do izražaja kada se dodaju promenljive u model ili se izbacuju iz njega. Ukoliko dodavanjem neke promenljive vrednost Multiple R-squared ostane ista, a Adjusted R-squared se smanjuje onda dolazi do problema kada postoji previše promenljivih u modelu. Tada nastaje overfitting samog modela nad podacima koji su mu 
-prosleđeni za treniranje i model se neće najbolje ponašati u radu sa podacima koji mu budu prosleđeni po prvi put – koji služe za testiranje. 
-Pošto model za sada deluje veoma složeno, nastojaće se da bude što više uprošćen, kako bi ostale izdvojene samo najznačajnije varijable makar 
-i po cenu da se vrednosti R-squared koeficijenta neznatno smanje. Nekada je dobro imati jednostavniji model, jer se tada na lakši
+zaključiti da je model za sada veoma pogodan za predvidđanje broja golova na utakmici. Najveća vrednost koju ova dva koeficijenta mogu uzeti je 1 i što je vrednost ove dve mere bliža jedinici to je model pogodniji za predviđanje. Osnovna mera koja se posmatra je Multiple R-squared koja predstavlja srednju kvadratnu grešku modela. Daljim podešavanjem modela se teži da mera Adjusted R–squared ima blisku vrednost Multiple R-squared. Koeficijent Multiple R-squared dolazi do izražaja kada se dodaju promenljive u model ili se izbacuju iz njega. Ukoliko dodavanjem neke promenljive vrednost Multiple R-squared ostane ista, a Adjusted R-squared se smanjuje onda dolazi do problema kada postoji previše promenljivih u modelu. Tada nastaje overfitting samog modela nad podacima koji su mu prosleđeni za treniranje i model se neće najbolje ponašati u radu sa podacima koji mu budu prosleđeni po prvi put – koji služe za testiranje.
+
+Pošto model za sada deluje veoma složeno, nastojaće se da bude što više uprošćen, kako bi ostale izdvojene samo najznačajnije varijable makar i po cenu da se vrednosti R-squared koeficijenta neznatno smanje. Nekada je dobro imati jednostavniji model, jer se tada na lakši
 način mogu uočiti varijable koje su stvarno od značaja za posmatrani problem.  
 
-Dalje je neophodno protumačiti ako se pojave jedna, dve, tri zvezdice u produžetku korišćenih varijabli ili ako se te zvezdice uopšte i ne pojavljuju u tumačenju modela. Kada se u produžetku neke nezavisne promenljive nalaze 3 zvezdice(``***``), kao što je to slučaj sa *ŠuteviUOkvir*, *Pobednik* i *Korneri*, to znači da su ove promenljive jako značajne za naš model i da je poželjno da ih zadržimo. Tri zvezdice predstavljaju promenljive sa statističkim nivoom značajnosti 0, odnosno najvišim nivoom, a kako se broj zvezdica smanjuje i sam nivo značajnosti opada. Može se primetiti da trenutno postoji još samo jedna promenljive koja je od značaja za model, ali sa znatno manjim nivovom značajnosti od 0.1, to je promenljiva *Kvota*. Vrednost nivoa značajnosti promenljivih može varirati kroz iteracije modela, pa se zato teži da se model pojednostavljuje izbacivanjem jedne po jedne promenljive, a ne odjednom svih.
+Dalje je neophodno protumačiti ako se pojave jedna, dve, tri zvezdice u produžetku korišćenih varijabli ili ako se te zvezdice uopšte i ne pojavljuju u tumačenju modela. Kada se u produžetku neke nezavisne promenljive nalaze 3 zvezdice(``***``), kao što je to slučaj sa *ŠuteviUOkvir*, *Pobednik* i *Korneri*, to znači da su ove promenljive jako značajne za model i da je poželjno zadržati ih. Tri zvezdice predstavljaju promenljive sa statističkim nivoom značajnosti 0, odnosno najvišim nivoom, a kako se broj zvezdica smanjuje i sam nivo značajnosti opada. Može se primetiti da trenutno postoji još samo jedna promenljive koja je od značaja za model, ali sa znatno manjim nivovom značajnosti od 0.1, to je promenljiva *Kvota*. Vrednost nivoa značajnosti promenljivih može varirati kroz iteracije modela, pa se zato teži da se model pojednostavljuje izbacivanjem jedne po jedne promenljive, a ne odjednom svih.
 
-Iz iteracije u iteraciju potrebno je protumačiti rezultate modela, pa se može desiti da neke promenljive koje u početku nisu bile statistički značajne postanu jako značajne. To se dešava usled problema multikolinearnosti, kada postoji velika korelacija između neke dve promenljive. Ova pojava se može javiti i u predloženom modelu zato što su neke promenljive izvedene iz drugih. Ideja je da na kraju kao rezultat ostane model dovoljno
-jasan i jednostavan, sa statistički veoma značajnim promenljivama i relativno velikom vrednošću oba koeficijenata R-squared.
+U svakoj iteraciji potrebno je protumačiti rezultate modela, pa se može desiti da neke promenljive koje u početku nisu bile statistički značajne postanu jako značajne. To se dešava usled problema multikolinearnosti, kada postoji velika korelacija između neke dve promenljive. Ova pojava se može javiti i u predloženom modelu zato što su neke promenljive izvedene iz drugih. Ideja je da na kraju kao rezultat ostane model dovoljno jasan i jednostavan, sa statistički veoma značajnim promenljivama i relativno velikom vrednošću oba koeficijenata R-squared.
 
 Od promenljivih koje se u ovoj prvoj iteraciji nisu pokazale statistički značajne biće izabrana jedna koja će biti izbaćena iz modela.
-Bira se promenljiva koja ima najveću vrednost u koloni *Pr(>|t|)*, a to je promenljiva CrveniKartoni sa vrednošću od 0.819177 u datoj
+Bira se promenljiva koja ima najveću vrednost u koloni *Pr(>|t|)*, a to je promenljiva *CrveniKartoni* sa vrednošću od 0.819177 u datoj
 koloni. Zatim se poziva ista funkciju kao u prethodnoj iteraciji samo bez promenljive *CrveniKartoni* i formira se **model2**.
 
 ```R
@@ -96,7 +93,7 @@ model2 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva 
 *Listing 4 - Regresioni model2*
 
 U modelu 2 vrednost Multiple R-squared iznosi 0.5443, a Adjusted R-squared iznosi 0.5331. Vrednost Multiple R-squared u odnosu na 
-model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive CrveniKartoni. 
+model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive *CrveniKartoni*. 
 
 ```R
 summary(model2)
@@ -374,7 +371,7 @@ Za kranji model čitamo vrednost Fišerove statistike koja iznosi 161.9 uz 416 s
 
 Residual standard error predstavlja meru kvaliteta modela linerne regresije. To je prosečna vrednost koliko će promenljiva Golovi odstupati od prave regresione linije. 
 
-Na kraju je dobijen model u kome su sve preostale promenljive značajne sa najvišim nivoom značajnosti pa se staje sa iteracijama. Dati model linearne regresije sa velikom preciznošću samo na osnovu šuteva u okvir gola, broja
+Na kraju je dobijen model u kome su sve preostale promenljive značajne sa najvišim nivoom značajnosti, pa se staje sa iteracijama. Dati model linearne regresije sa velikom preciznošću samo na osnovu šuteva u okvir gola, broja
 kornera i krajnjeg pobednika meča može predvideti broj golova jedne ekipe na utakmici.
 
 ##	Predlozi poboljšanja modela
