@@ -1,17 +1,15 @@
-# Predviđanje broja golova
+# Prediction of the number of goals
 
-##	O projektu
-Ideja projekta je da se osnovu prikupljenih podataka o pojedinačnim mečevima u okviru engleske Premijer lige u fudbalu predvidi koliko će golova postići neki tim ne sledećem meču. Podaci su prikupljeni sa sajta za praćenje sportskih takmičenja [Rezultati](http://www.rezultati.com/nogomet/engleska/premier-league-2015-2016/rezultati/). 
-Posmatrani su mečevi iz sezone 2015/16 i iz tih mečeva izvučene neke osnovne statistike koje su karatkeristične fudbalskom meču. 
-Koliko neki statistički parametri utiču na broj golova tima na utakmici može se utvrditi preko linearne regresije i to je metod koji je
-korišćen u ovom projektu. Ceo projekat je realizovan u programskom jeziku R. 
+##	about the project
+The idea of the project is to predict how many goals will be scored by a team in the next match based on the data collected on individual English Premier League matches. Data were collected from the Sports Tracking Website Resultati (http://www.rezultati.com/nogomet/engleska/premier-league-2015-2016/rezultati/). Matches from the 2015/16 season have been observed and some basic statistics extracted from those matches that are characteristic to a football match. How much some statistical parameters affect the number of goals a team will have in a match can be determined by linear regression and this is a method that is used in this project.
+The whole project was implemented in the programming language R.
 
-##	Linerna regresija
-Linearna regresija predstavlja metodu kojom se jedna takozvana zavisna promenljiva može predvideti korišćenjem jedne ili više nezavisnih promenljivih. U ovom projektu je korišćeno više nezavisnih promenljivih pa u pitanju nije jednostruka linearna regresija, već višestruka. Za nezavisnu promenljivu je odabran broj golova, koje je na osnovu ostalih promenljivih potrebno predvideti. U nastavku rada biće prikazano koje su to promenljive koje su se pokazale kao dobar pokazatelj ukupnog broja golova jednog tima na utakmici. 
-U modelu koji je rezultat linearne regresije pojavljuje se onoliko koeficijenata koliko ima i nezavisnih promenljivih i još jedan koeficijent, odnosno slobodan član. Vrednosti koeficijenata uz nezavisne promenljive mogu biti pozitivne pa je onda veza direktno proporcionalna između te nezavisne promenljive i one koju model predviđa ili obrnuto proporcionalna ako je ispred nezavisne promenljive negativan predznak. 
-Osnovna ideja linearne regresije je da pruži model koji će na osnovu nekog novog seta podataka, nekih konkretnih vrednosti nezavisnih promenljivih dati projekciju, odnosno predvideti vrednost posmatrane zavisne promenljive. 
+##	Linear regression
+Linear regression is a method by which a so-called dependent variable can be predicted using one or more independent variables.Multiple independent variables were used in this project, so in this project it is not used single linear regression, but multiple. The number of goals was selected for the independent variable which should be predicted based on other variables. The following project work will outline what variables have proven to be a good indicator of the total number of goals a team has in a game. In the model which is a result of linear regression, there are as many coefficients as there are independent variables and another additional coefficient, a free member. The values of the coefficients near the independent variables can be positive, so the relation is directly proportional between that independent variable and the one predicted by the model, or inversely proportional if there is a negative sign in front of the independent variable.
 
-##	Podaci 
+The basic idea of linear regression is to provide a model that, based on some new data set, some specific values of independent variables, will give a prediction of the value of the observed dependent variable.
+
+##	Data 
 Podaci koji su korišćeni su prikupljeni sa portala [Rezultati.com](http://www.rezultati.com/), jednog od najpopularnijih sajtova za 
 praćenje rezultata sportskih dešavanja u realnom vremenu. Svi prikupljeni podaci su sačuvani u fajlu [Premier_train.csv](https://github.com/DanijelMisulic/Predvidjanje-broja-golova/blob/master/Premier_train.csv).
 Prikupljeni su podaci svih mečeva u sezoni engleske Premijer lige 2015/16, odnosno prvih 37 kola. Ideja je da se na osnovu modela koji 
