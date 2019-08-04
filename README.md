@@ -10,33 +10,25 @@ Linear regression is a method by which a so-called dependent variable can be pre
 The basic idea of linear regression is to provide a model that, based on some new data set, some specific values of independent variables, will give a prediction of the value of the observed dependent variable.
 
 ##	Data 
-Podaci koji su korišćeni su prikupljeni sa portala [Rezultati.com](http://www.rezultati.com/), jednog od najpopularnijih sajtova za 
-praćenje rezultata sportskih dešavanja u realnom vremenu. Svi prikupljeni podaci su sačuvani u fajlu [Premier_train.csv](https://github.com/DanijelMisulic/Predvidjanje-broja-golova/blob/master/Premier_train.csv).
-Prikupljeni su podaci svih mečeva u sezoni engleske Premijer lige 2015/16, odnosno prvih 37 kola. Ideja je da se na osnovu modela koji 
-je istreniran sa podacima iz tih prvih 37 kola predvide brojevi golova poslednjeg 38. kola i na taj način sam model istestira. Podaci 
-tog poslednjeg kola se nalaze u fajlu Premier_test.csv.  Sami podaci koji su prikupljeni predstavljaju standardne statističke parametre 
-koji se prate na svakom fudbalskom meču poput: šuteva u okvir gola, procenat poseda lopte, broj žutih kartona, broj kornera i ostalo.
-Primer podataka korišćenih u analizi dat je u Listingu 1.
+The data used was collected from Rezultati.com, one of the most popular real-time sports performance monitoring websites in Serbia. All data collected is stored in the file [Premier_train.csv](https://github.com/DanijelMisulic/Predvidjanje-broja-golova/blob/master/Premier_train.csv). Data were collected from all matches in the English Premier League 2015/16 season, the first 37 rounds. The idea is that, based on the model trained with the data from those first 37 rounds, the goals of the last 38th round will be predicted, and thus the model will tested in that way. The data of that last competition round is in the Premier_test.csv file. The collected data represent standard statistical parameters that are monitored on every football match such as: number of attempts on the target, percentage of possession, number of yellow cards, number of corners and more. An example of the data used in the analysis is given in Listing 1.
 
 ```
-Tim,Golovi,PosedLopte,UkupnoSuteva,SuteviUokvir,SuteviVanOkvira,BlokiraniSutevi,SlobodniUdarci,Korneri,Ofsajdi,OdbraneGolmana,Prekrsaji,ZutiKartoni,CrveniKartoni,Kvota,Pobednik
+Team, Goals, Possession, TotalNumberOfAttempts, AttemptsOnTheTarget, AttemptsOfTheTarget, BlockedShots, FreeKicks, Corners, Offsides, GoalkeeperSaves, Fouls, YellowCards, RedCards, Odds, Winner
 Manchester United,1,67,15,2,6,7,11,6,1,2,10,1,0,2.1,1
 ```
-*Listing 1 - Primer podataka korišćenih za analizu*
+*Listing 1 - An example of the data used for analysis*
 
-##	Realizacija projekta i tumačenje rezultata
-Projekat je realizovan u programskom jeziku R. Dati programski jezik je odabran zbog lakoće manipulacije CSV fajlovima i zbog 
-jednostavnosti pravljenja modela linearne regresije. Prvo je neophodno učitati fajl Premier_train.csv u kome se nalaze podaci koji su prikupljeni. Zatim se poziva funkcija **lm***, koja će napraviti traženi model linearne regresije. Početna ideja je da se većina promenljivih koje se nalaze u training dataset-u postave kao nezavisne, a promeljiva Golovi da se postavi kao zavisna. Sam rezultat ovog koraka neće biti savršen model, ali će biti moguće u više iteracija model poboljšavati s obzirom na protumačene rezultate. 
-
+##	Project realization and interpretation of the results
+The project was implemented in programming language R.The given programming language was chosen for ease of manipulation of CSV files and for
+ease of making linear regression models. First, it is necessary to upload the Premier_train.csv file containing the information that has been collected. The **lm*** function is then called, which will make the required linear regression model. The initial idea is to set most of the variables contained in the training dataset as independent, and Goals as dependent. The result of this step alone will not be a perfect model, but it will be possible in several iterations to refine the model given the interpreted results.
 ```R
 Premier = read.csv("Premier_train.csv")
-model1 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik + CrveniKartoni, data = Premier)
+model1 = lm(Goals ~ Possession + AttemptsOnTheTarget + BlockedShots + TotalNumberOfAttempts + AttemptsOfTheTarget + FreeKicks + Corners + Offsides + Odds +  Winner + RedCards, data = Premier)
 summary(model1)
 ```
-*Listing 2 - Regresioni model1*
+*Listing 2 - Regression model1*
 
-U inicijalnom rešenju dobijen je model1 pozivom funkcije lm. Sa leve strane znaka ~ definiše se zavisna promenljiva, a to je u ovom 
-slučaju promenljiva *Golovi*. Sa desne strane znaka ~ nalaze se nezavisne promenljive koje se nadovezuju pomoću znaka +. Dalje se mora precizirati koji dataset se koristi, pa će biti prosleđen onaj koji je u ove svrhe prikupljen i učitan u prethodnom koraku. Kako izgleda sam model linearne regresije prikazano je u nastavku pozivom metode:
+In the initial solution model1 was obtained by calling the function lm. To the left of the ~ character is defined the dependent variable, which is in this case variable  *Goals*. To the right of the ~ character are independent variables that are combined with the + sign. Further, it is necessary to specify which dataset is being used, and the one that has been collected and loaded for the previous step will be passed as a parameter. The linear regression model itself is shown below by calling the method:
 
 ```R
 summary(model1)
@@ -46,19 +38,19 @@ Residuals:
 -2.3524 -0.5397 -0.1026  0.4679  3.1676 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      0.733277   0.337704   2.171 0.030479 *  
-PosedLopte      -0.006232   0.005044  -1.235 0.217383    
-SuteviUokvir     0.234419   0.047317   4.954 1.07e-06 ***
-BlokiraniSutevi -0.023064   0.048700  -0.474 0.636044    
-UkupnoSuteva     0.010440   0.043700   0.239 0.811309    
-SuteviVanOkvira -0.013583   0.042052  -0.323 0.746861    
-SlobodniUdarci   0.007883   0.011375   0.693 0.488699    
-Korneri         -0.064742   0.016553  -3.911 0.000108 ***
-Ofsajdi          0.009508   0.025654   0.371 0.711120    
-Kvota           -0.039100   0.021199  -1.844 0.065850 .  
-Pobednik         1.015347   0.095957  10.581  < 2e-16 ***
-CrveniKartoni   -0.034538   0.150987  -0.229 0.819177    
+                        Estimate Std. Error t value Pr(>|t|)    
+(Intercept)             0.733277   0.337704   2.171 0.030479 *  
+Possession             -0.006232   0.005044  -1.235 0.217383    
+AttemptsOnTheTarget     0.234419   0.047317   4.954 1.07e-06 ***
+BlockedShots -0.023064  0.048700  -0.474 0.636044    
+TotalNumberOfAttempts   0.010440   0.043700   0.239 0.811309    
+AttemptsOfTheTarget    -0.013583   0.042052  -0.323 0.746861    
+FreeKicks               0.007883   0.011375   0.693 0.488699    
+Corners                -0.064742   0.016553  -3.911 0.000108 ***
+Offsides                0.009508   0.025654   0.371 0.711120    
+Odds                   -0.039100   0.021199  -1.844 0.065850 .  
+Winner                  1.015347   0.095957  10.581  < 2e-16 ***
+RedCards               -0.034538   0.150987  -0.229 0.819177    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -86,12 +78,12 @@ Bira se promenljiva koja ima najveću vrednost u koloni *Pr(>|t|)*, a to je prom
 koloni. Zatim se poziva ista funkciju kao u prethodnoj iteraciji samo bez promenljive *CrveniKartoni* i formira se **model2**.
 
 ```R
-model2 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + UkupnoSuteva + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+model2 = lm(Goals ~ Possession + AttemptsOnTheTarget + BlockedShots + TotalNumberOfAttempts + AttemptsOfTheTarget + FreeKicks + Corners + Offsides + Odds +  Winner, data = Premier)
 ```
-*Listing 4 - Regresioni model2*
+*Listing 4 - Regression model2*
 
-U modelu 2 vrednost Multiple R-squared iznosi 0.5443, a Adjusted R-squared iznosi 0.5331. Vrednost Multiple R-squared u odnosu na 
-model1 je ostala ista, a Adjusted R-squared se neznatno povećala što opravdava odstranjivanje promenljive *CrveniKartoni*. 
+In Model 2, the Multiple R-squared value is 0.5443 and the Adjusted R-squared value is 0.5331. Multiple R-squared value compared to
+model1 remained the same, and Adjusted R-squared increased slightly, justifying the removal of the *RedCards*. variable.
 
 ```R
 summary(model2)
@@ -101,18 +93,18 @@ Residuals:
 -2.3569 -0.5347 -0.1167  0.4615  3.1722 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      0.715062   0.327801   2.181 0.029723 *  
-PosedLopte      -0.006093   0.005002  -1.218 0.223863    
-SuteviUokvir     0.234396   0.047262   4.960 1.04e-06 ***
-BlokiraniSutevi -0.023103   0.048644  -0.475 0.635074    
-UkupnoSuteva     0.010488   0.043649   0.240 0.810234    
-SuteviVanOkvira -0.013129   0.041956  -0.313 0.754493    
-SlobodniUdarci   0.007941   0.011359   0.699 0.484919    
-Korneri         -0.064745   0.016534  -3.916 0.000106 ***
-Ofsajdi          0.009972   0.025544   0.390 0.696449    
-Kvota           -0.038302   0.020886  -1.834 0.067402 .  
-Pobednik         1.019246   0.094322  10.806  < 2e-16 ***
+                        Estimate Std. Error t value Pr(>|t|)    
+(Intercept)             0.715062   0.327801   2.181 0.029723 *  
+Possession             -0.006093   0.005002  -1.218 0.223863    
+AttemptsOnTheTarget     0.234396   0.047262   4.960 1.04e-06 ***
+BlockedShots           -0.023103   0.048644  -0.475 0.635074    
+TotalNumberOfAttempts   0.010488   0.043649   0.240 0.810234    
+AttemptsOfTheTarget    -0.013129   0.041956  -0.313 0.754493    
+FreeKicks               0.007941   0.011359   0.699 0.484919    
+Corners                -0.064745   0.016534  -3.916 0.000106 ***
+Offsides                0.009972   0.025544   0.390 0.696449    
+Odds                   -0.038302   0.020886  -1.834 0.067402 .  
+Winner                  1.019246   0.094322  10.806  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -121,16 +113,16 @@ Multiple R-squared:  0.5443,    Adjusted R-squared:  0.5331
 F-statistic: 48.85 on 10 and 409 DF,  p-value: < 2.2e-16
 
 ```
-*Listing 5 - Statistički parametri regresionog modela2*
+*Listing 5 - Statistical parametres of regression model2*
 
-Dalje se postupak ponavlja, sledeća promenljiva koju će biti odstanjena je *UkupnoSuteva*. 
+The procedure is repeated further, the next variable to be removed is *TotalNumberOfAttempts*.
 
 ```R
-model3 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SuteviVanOkvira + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+model3 = lm(Goals ~ Possession + AttemptsOnTheTarget + BlockedShots + AttemptsOfTheTarget + FreeKicks + Corners + Offsides + Odds +  Winner, data = Premier)
 ```
-*Listing 6 - Regresioni model3*
+*Listing 6 - Regression model3*
 
-Multiple R-squared = 0.5442, Adjusted R-squared = 0.5342. Mera Adjusted R – squared se opet povećala što predstavalja poboljšanje regresionog modela. 
+Multiple R-squared = 0.5442, Adjusted R-squared = 0.5342. The Adjusted R - squared measure increased again, representing an improvement in the regression model.
 
 ```R
 summary(model3)
@@ -140,17 +132,17 @@ Residuals:
 -2.3462 -0.5354 -0.1185  0.4640  3.1702 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      0.711408   0.327072   2.175   0.0302 *  
-PosedLopte      -0.005930   0.004950  -1.198   0.2316    
-SuteviUokvir     0.244648   0.020303  12.050  < 2e-16 ***
-BlokiraniSutevi -0.012381   0.019340  -0.640   0.5224    
-SuteviVanOkvira -0.003788   0.015760  -0.240   0.8102    
-SlobodniUdarci   0.007920   0.011346   0.698   0.4855    
-Korneri         -0.064927   0.016498  -3.936 9.75e-05 ***
-Ofsajdi          0.010410   0.025450   0.409   0.6827    
-Kvota           -0.038045   0.020835  -1.826   0.0686 .  
-Pobednik         1.020691   0.094022  10.856  < 2e-16 ***
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.711408   0.327072   2.175   0.0302 *  
+Possession            -0.005930   0.004950  -1.198   0.2316    
+AttemptsOnTheTarget    0.244648   0.020303  12.050  < 2e-16 ***
+BlockedShots          -0.012381   0.019340  -0.640   0.5224    
+AttemptsOfTheTarget   -0.003788   0.015760  -0.240   0.8102    
+FreeKicks              0.007920   0.011346   0.698   0.4855    
+Corners               -0.064927   0.016498  -3.936 9.75e-05 ***
+Offsides               0.010410   0.025450   0.409   0.6827    
+Odds                  -0.038045   0.020835  -1.826   0.0686 .  
+Winner                 1.020691   0.094022  10.856  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -159,14 +151,14 @@ Multiple R-squared:  0.5442,    Adjusted R-squared:  0.5342
 F-statistic: 54.39 on 9 and 410 DF,  p-value: < 2.2e-16
 
 ```
-*Listing 7 - Statistički parametri regresionog modela3*
+*Listing 7 - Statistical parametres of regression model3*
 
-Sledeća promenljiva koja će biti izbačena iz modela je *ŠuteviVanOkvira*.
+The next variable to be thrown out of the model is  *AttemptsOfTheTarget*.
 
 ```R
-model4 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Ofsajdi + Kvota +  Pobednik, data = Premier)
+model4 = lm(Goals ~ Possession + AttemptsOnTheTarget + BlockedShots + FreeKicks + Corners + Offsides + Odds +  Winner, data = Premier)
 ```
-*Listing 8 - Regresioni model4*
+*Listing 8 - Regression model4*
 
 Multiple R-squared = 0.5441, Adjusted R-squared = 0.5353. 
 
@@ -177,16 +169,16 @@ Residuals:
 -2.3733 -0.5314 -0.1135  0.4618  3.1804 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      0.701734   0.324214   2.164   0.0310 *  
-PosedLopte      -0.006017   0.004931  -1.220   0.2231    
-SuteviUokvir     0.244333   0.020238  12.073  < 2e-16 ***
-BlokiraniSutevi -0.013289   0.018946  -0.701   0.4835    
-SlobodniUdarci   0.008112   0.011305   0.718   0.4734    
-Korneri         -0.065608   0.016234  -4.041 6.34e-05 ***
-Ofsajdi          0.010421   0.025420   0.410   0.6821    
-Kvota           -0.037948   0.020807  -1.824   0.0689 .  
-Pobednik         1.020616   0.093913  10.868  < 2e-16 ***
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.701734   0.324214   2.164   0.0310 *  
+Possession           -0.006017   0.004931  -1.220   0.2231    
+AttemptsOnTheTarget   0.244333   0.020238  12.073  < 2e-16 ***
+BlockedShots         -0.013289   0.018946  -0.701   0.4835    
+FreeKicks             0.008112   0.011305   0.718   0.4734    
+Corners              -0.065608   0.016234  -4.041 6.34e-05 ***
+Offsides              0.010421   0.025420   0.410   0.6821    
+Odds                 -0.037948   0.020807  -1.824   0.0689 .  
+Winner                1.020616   0.093913  10.868  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -196,14 +188,14 @@ F-statistic: 61.32 on 8 and 411 DF,  p-value: < 2.2e-16
 
 
 ```
-*Listing 9 - Statistički parametri regresionog modela4*
+*Listing 9 - Statistical parametres of regression model4*
 
-Postupak se ponavlja, sada će biti odstranjena još jedna promenljiva za koju se pokazalo da nije statistički značajna u modelu: *Ofsajdi*.
+The process is being repeated, now another variable will be removed which has been shown not to be statistically significant in the model: *Offsides*.
 
 ```R
-model5 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + SlobodniUdarci + Korneri + Kvota +  Pobednik, data = Premier)
+model5 = lm(Goals ~ Possession + AttemptsOnTheTarget + BlockedShots + FreeKicks + Corners + Odds +  Winner, data = Premier)
 ```
-*Listing 10 - Regresioni model5*
+*Listing 10 - Regression model5*
 
 Multiple R-squared = 0.544, Adjusted R-squared 0.5362.  
 
@@ -215,15 +207,15 @@ Residuals:
 -2.3651 -0.5353 -0.1132  0.4609  3.1902 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      0.729772   0.316598   2.305   0.0217 *  
-PosedLopte      -0.006100   0.004922  -1.239   0.2160    
-SuteviUokvir     0.244570   0.020209  12.102  < 2e-16 ***
-BlokiraniSutevi -0.013125   0.018923  -0.694   0.4883    
-SlobodniUdarci   0.007791   0.011266   0.692   0.4896    
-Korneri         -0.065560   0.016217  -4.043 6.31e-05 ***
-Kvota           -0.038441   0.020751  -1.853   0.0647 .  
-Pobednik         1.021901   0.093766  10.898  < 2e-16 ***
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.729772   0.316598   2.305   0.0217 *  
+Possession           -0.006100   0.004922  -1.239   0.2160    
+AttemptsOnTheTarget   0.244570   0.020209  12.102  < 2e-16 ***
+BlockedShots         -0.013125   0.018923  -0.694   0.4883    
+FreeKicks             0.007791   0.011266   0.692   0.4896    
+Corners              -0.065560   0.016217  -4.043 6.31e-05 ***
+Odds                 -0.038441   0.020751  -1.853   0.0647 .  
+Winner                1.021901   0.093766  10.898  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -232,16 +224,16 @@ Multiple R-squared:  0.544,     Adjusted R-squared:  0.5362
 F-statistic:  70.2 on 7 and 412 DF,  p-value: < 2.2e-16
 
 ```
-*Listing 11 - Statistički parametri regresionog modela5*
+*Listing 11 - Statistical parametres of regression model5*
 
-Može se primetiti da se model i dalje poboljšava pa se nastavlja sa iteracijama. Sledeća se izbacuje promenljiva *SlobodniUdarci*.
+It can be noticed that the model is still improving, so iterations continue. The next variable that is being removed is *FreeKicks*.
 
 ```R
-model6 = lm(Golovi ~ PosedLopte + SuteviUokvir + BlokiraniSutevi + Korneri + Kvota +  Pobednik, data = Premier)
+model6 = lm(Goals ~ Possession + AttemptsOnTheTarget + BlockedShots + Corners + Odds +  Winner, data = Premier)
 ```
-*Listing 12 - Regresioni model6*
+*Listing 12 - Regression model6*
 
-Multiple R-squared = 0.5434, Adjusted R-squared = 0.5368. Može se zaključiti da se model neznatno poboljšao kroz nekoliko uzastopnih iteracija, ali i dosta uprostio što je svakako poželjno. 
+Multiple R-squared = 0.5434, Adjusted R-squared = 0.5368. It can be concluded that the model has improved slightly over several consecutive iterations, but has also simplified quite a bit, which is certainly desirable.
 
 ```R
 summary(model6)
@@ -251,14 +243,14 @@ Residuals:
 -2.3303 -0.5452 -0.1030  0.4733  3.1746 
 
 Coefficients:
-                 Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      0.822941   0.286321   2.874  0.00426 ** 
-PosedLopte      -0.005867   0.004907  -1.196  0.23256    
-SuteviUokvir     0.244366   0.020194  12.101  < 2e-16 ***
-BlokiraniSutevi -0.013024   0.018911  -0.689  0.49141    
-Korneri         -0.065911   0.016199  -4.069 5.66e-05 ***
-Kvota           -0.039411   0.020691  -1.905  0.05750 .  
-Pobednik         1.019287   0.093631  10.886  < 2e-16 ***
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.822941   0.286321   2.874  0.00426 ** 
+Possession           -0.005867   0.004907  -1.196  0.23256    
+AttemptsOnTheTarget   0.244366   0.020194  12.101  < 2e-16 ***
+BlockedShots         -0.013024   0.018911  -0.689  0.49141    
+Corners              -0.065911   0.016199  -4.069 5.66e-05 ***
+Odds                 -0.039411   0.020691  -1.905  0.05750 .  
+Winner                1.019287   0.093631  10.886  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -267,14 +259,14 @@ Multiple R-squared:  0.5434,    Adjusted R-squared:  0.5368
 F-statistic: 81.93 on 6 and 413 DF,  p-value: < 2.2e-16
 
 ```
-*Listing 13 - Statistički parametri regresionog modela6*
+*Listing 13 - Statistical parametres of regression model6*
 
-U sledećoj iteraciji će iz modela biti izostavljena promenljiva *BlokiraniŠutevi*. 
+In the next iteration, the variable *BlockedShots* will be omitted from the model.
 
 ```R
-model7 = lm(Golovi ~ PosedLopte + SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
+model7 = lm(Goals ~ Possession + AttemptsOnTheTarget + Corners + Odds +  Winner, data = Premier)
 ```
-*Listing 14 - Regresioni model7*
+*Listing 14 - Regression model7*
 
 Multiple R-squared = 0.5429, Adjusted R-squared = 0.5374. 
 
@@ -286,13 +278,13 @@ Residuals:
 -2.3486 -0.5514 -0.1102  0.4581  3.1274 
 
 Coefficients:
-              Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   0.828374   0.286031   2.896  0.00398 ** 
-PosedLopte   -0.006434   0.004835  -1.331  0.18403    
-SuteviUokvir  0.243746   0.020161  12.090  < 2e-16 ***
-Korneri      -0.070095   0.015007  -4.671 4.06e-06 ***
-Kvota        -0.039188   0.020675  -1.895  0.05873 .  
-Pobednik      1.023903   0.093331  10.971  < 2e-16 ***
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.828374   0.286031   2.896  0.00398 ** 
+Possession          -0.006434   0.004835  -1.331  0.18403    
+AttemptsOnTheTarget  0.243746   0.020161  12.090  < 2e-16 ***
+Corners             -0.070095   0.015007  -4.671 4.06e-06 ***
+Odds                -0.039188   0.020675  -1.895  0.05873 .  
+Winner               1.023903   0.093331  10.971  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -301,17 +293,16 @@ Multiple R-squared:  0.5429,    Adjusted R-squared:  0.5374
 F-statistic: 98.34 on 5 and 414 DF,  p-value: < 2.2e-16
 
 ```
-*Listing 15 - Statistički parametri regresionog modela7*
+*Listing 15 - Statistical parametres of regression model7*
 
-Sledeća promenljiva koja se neće naći u krajnjem modelu je *PosedLopte*.
+The next variable that won't stay in the end model is *Possesion*.
 
 ```R
-model8 = lm(Golovi ~ SuteviUokvir + Korneri + Kvota +  Pobednik, data = Premier)
+model8 = lm(Goals ~ AttemptsOnTheTarget + Corners + Odds +  Winner, data = Premier)
 ```
-*Listing 16 - Regresioni model8*
+*Listing 16 - Regression model8*
 
-Multiple R-squared = 0.5409, Adjusted R-squared = 0.5365. vrednosti oba koeficijenta su se smanjile u odnosu na prethodnu iteraciju, ali je izbačena promenljiva koja nije bila statistički značajna i na taj način je dobijen jednostavniji model.  
-
+Multiple R-squared = 0.5409, Adjusted R-squared = 0.5365. The values of both coefficients decreased compared to the previous iteration, but a variable that was not statistically significant was dropped and thus a simpler model was obtained.
 ```R
 summary(model8)
 
@@ -320,12 +311,12 @@ Residuals:
 -2.3352 -0.5520 -0.1211  0.4925  3.1250 
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   0.50127    0.14638   3.425 0.000677 ***
-SuteviUokvir  0.24045    0.02003  12.006  < 2e-16 ***
-Korneri      -0.07569    0.01442  -5.250 2.44e-07 ***
-Kvota        -0.02646    0.01835  -1.442 0.149982    
-Pobednik      1.03715    0.09289  11.166  < 2e-16 ***
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.50127    0.14638   3.425 0.000677 ***
+AttemptsOnTheTarget  0.24045    0.02003  12.006  < 2e-16 ***
+Corners             -0.07569    0.01442  -5.250 2.44e-07 ***
+Odds                -0.02646    0.01835  -1.442 0.149982    
+Winner               1.03715    0.09289  11.166  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -334,14 +325,14 @@ Multiple R-squared:  0.5409,    Adjusted R-squared:  0.5365
 F-statistic: 122.3 on 4 and 415 DF,  p-value: < 2.2e-16
 
 ```
-*Listing 17 - Statistički parametri regresionog modela8*
+*Listing 17 - Statistical parametres of regression model8*
 
-Kada je model pokazao zadovoljavajuće rezultate može se odabrati da se stane sa iteracijama ili da se izbaci još jedna promenljiva *Kvota*.
+When the model has shown satisfactory results it can be selected to stop with iterations or to remove another variable *Odds*.
 
 ```R
-model9 = lm(Golovi ~ SuteviUokvir + Korneri +  Pobednik, data = Premier)
+model9 = lm(Goals ~ AttemptsOnTheTarget + Corners +  Winner, data = Premier)
 ```
-*Listing 18 - Regresioni model9*
+*Listing 18 - Regression model9*
 
 ```R
 Residuals:
@@ -349,11 +340,11 @@ Residuals:
 -2.3581 -0.5566 -0.1177  0.4626  3.1630 
 
 Coefficients:
-             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)   0.34641    0.09962   3.477  0.00056 ***
-SuteviUokvir  0.24544    0.01975  12.426  < 2e-16 ***
-Korneri      -0.07017    0.01392  -5.041 6.92e-07 ***
-Pobednik      1.06676    0.09071  11.761  < 2e-16 ***
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.34641    0.09962   3.477  0.00056 ***
+AttemptsOnTheTarget  0.24544    0.01975  12.426  < 2e-16 ***
+Corners             -0.07017    0.01392  -5.041 6.92e-07 ***
+Winner               1.06676    0.09071  11.761  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -361,7 +352,7 @@ Residual standard error: 0.8208 on 416 degrees of freedom
 Multiple R-squared:  0.5386,    Adjusted R-squared:  0.5353 
 F-statistic: 161.9 on 3 and 416 DF,  p-value: < 2.2e-16
 ```
-*Listing 19 - Statistički parametri regresionog modela9*
+*Listing 19 - Statistical parametres of regression model9*
 
 Reziduali krajnjeg modela variraju izmedju -2.2581 i 3.1630. Ovaj statistički parametar predstavlja razliku izmedju ostvarenih vrednosti i onih koje je model predvideo. Samim tim što medijana ima vrednost blisku nuli, to znači da regresioni model daje dobra predviđanja bliska realnim vrednostima. Medijana u datom kontekstu predstavlja vrednost reziduala pre koje se nalazi 50% ostalih vrednosti reziduala, a posle koje se nalazi preostalih 50%. 
 
