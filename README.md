@@ -361,9 +361,9 @@ kornera i krajnjeg pobednika meča može predvideti broj golova jedne ekipe na u
 ##	Predlozi poboljšanja modela
 Podaci na kojima se zasniva dobijen model dosta zavise od ofanzivne igre fudbalskog tima, a ne obraća se toliko pažnja na defanzivne sposobnosti. Možda bi od bilo od još većeg značaja bile odbrambene karakteristike protivničkog tima. Na primer, nije isto da li će tim poput Mančester Junajteda imati 10 šuteva u okvir gola protiv nekog nižerazrednog tima ili protiv nekog pretendenta na titulu. Takodje, ukoliko je neki tim dobio crveni karton veća je verovatnoća da će primiti gol, pa je za jedan tim poželjno voditi računa i o nekim osnovnim karakteristikama protivnika, a ne samo o sopstvenim karakteristikama. Tako bi na primer mogao da se iskoristi dodatni atribut: da li je tim u nekom trenutku imao igrača više u odnosu na protivnika ili ne. To opet samo po sebi ne bi bilo toliko precizno s obzirom na dužinu perioda sa igračem više i slično.
 
-Predstavljen model daje solidne rezultate koristeći samo neke od osnovnih statističkih parametara koji su dostupni svima. Činjenica je da se model može poboljšati dodavanjem još nekih statističkih paramatera. Postoje statistički podaci koji nisu dostupni svima i koji se plaćaju, a mogu dati bolji uvid u neke aspekte igre fudbalskih timova, poput ukupne kilometraže koju igrači pretrče na meču ili ukupan broj startova koje načine.  
+The presented model produces solid results using only some of the basic statistical parameters available to all. The fact is that the model can be improved by adding some more statistical parameters. There are statistics that are not available to everyone and it is needed to pay for them, but can give a better insight into some aspects of the game of football teams, such as the total mileage players run in a match or the total number of duels they won, number of driblings made etc.
 
-##	Literatura	
--	EDX kurs, Analytics Edge, link: https://courses.edx.org/courses/course-v1:MITx+15.071x_3+1T2016/courseware/f8d71d64418146f18a066d7f0379678c/6248c2ecbbcb40cfa613193e8f1873c1/ , datum pristupa: 12.07.2016
--	 Wikipedia, “Linear regression” link: https://en.wikipedia.org/wiki/Linear_regression, datum pristupa: 11.07.2016
--	 Quick guide:Interpreting simple linear model output in R, link: https://rstudio-pubs-static.s3.amazonaws.com/119859_a290e183ff2f46b2858db66c3bc9ed3a.html, datum pristupa 13.07.2016
+##	Literature
+-	EDX course, Analytics Edge, link: https://courses.edx.org/courses/course-v1:MITx+15.071x_3+1T2016/courseware/f8d71d64418146f18a066d7f0379678c/6248c2ecbbcb40cfa613193e8f1873c1/ , date of access: 12.07.2016
+-	 Wikipedia, “Linear regression” link: https://en.wikipedia.org/wiki/Linear_regression, date of access: 11.07.2016
+-	 Quick guide:Interpreting simple linear model output in R, link: https://rstudio-pubs-static.s3.amazonaws.com/119859_a290e183ff2f46b2858db66c3bc9ed3a.html, date of access: 13.07.2016
